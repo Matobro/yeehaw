@@ -1,0 +1,882 @@
+[gd_scene format=3 uid="uid://ckpea8diq0e1f"]
+
+[ext_resource type="Texture2D" uid="uid://brj3lvdjduifw" path="res://Planet/Water.png" id="1_hag48"]
+[ext_resource type="Texture2D" uid="uid://lw775hviiu1a" path="res://Planet/SpaceFuill.png" id="1_qerpb"]
+[ext_resource type="Texture2D" uid="uid://b0lspdcpbhvj0" path="res://Planet/Coastlines.png" id="2_rad76"]
+[ext_resource type="Texture2D" uid="uid://w1ggf3lva85r" path="res://Planet/PlanetMask.png" id="2_vrf0h"]
+[ext_resource type="Texture2D" uid="uid://hbaqakusechw" path="res://Planet/cloud1.png" id="3_3vexp"]
+[ext_resource type="Texture2D" uid="uid://en0wff85pqn4" path="res://Planet/cloud2.png" id="4_qerpb"]
+[ext_resource type="Texture2D" uid="uid://uw58qd35e3sk" path="res://Planet/Stars.png" id="5_3vexp"]
+[ext_resource type="Texture2D" uid="uid://newxaty2euvm" path="res://Planet/cloud3.png" id="5_vrf0h"]
+[ext_resource type="Texture2D" uid="uid://b0jwqjsh8mgk" path="res://Planet/cloud4.png" id="6_gsyrf"]
+[ext_resource type="Texture2D" uid="uid://jryx0abcae0" path="res://Planet/GlowLight.png" id="6_qerpb"]
+[ext_resource type="Texture2D" uid="uid://dif8qahec4e85" path="res://Planet/cloud5.png" id="7_q2wn2"]
+[ext_resource type="Texture2D" uid="uid://cgw06kcfy4tna" path="res://Planet/Glow.png" id="7_vrf0h"]
+[ext_resource type="Texture2D" uid="uid://c3tq5t3n2m0vg" path="res://Planet/Lighting.png" id="8_gsyrf"]
+[ext_resource type="Script" uid="uid://cdjd8nuxr3ad3" path="res://MoneyUI.gd" id="15_q2wn2"]
+[ext_resource type="StyleBox" uid="uid://cj8frm5kh0j20" path="res://UI/Styles/TerminalDefault.tres" id="16_pbg03"]
+[ext_resource type="PackedScene" uid="uid://mkpvh54x6f1v" path="res://Player.tscn" id="16_q2wn2"]
+[ext_resource type="Script" uid="uid://u4gqwxe3bayw" path="res://UIHideButton.gd" id="16_xqkmr"]
+[ext_resource type="Script" uid="uid://blqdce5ksilnc" path="res://TabButton.gd" id="17_xqkmr"]
+[ext_resource type="Texture2D" uid="uid://ow280tbxdueb" path="res://ForceField/ForceField.png" id="18_0juq3"]
+[ext_resource type="Texture2D" uid="uid://ci140wc0hyi48" path="res://UI/HpBar.png" id="18_c1v1t"]
+[ext_resource type="Script" uid="uid://cw7y7jbq1nu4t" path="res://ShieldUI.gd" id="19_7gk3i"]
+[ext_resource type="Script" uid="uid://d1g0fjgubf7sx" path="res://Forcefield.gd" id="20_jvoc5"]
+[ext_resource type="Script" uid="uid://v182ga467qft" path="res://GlowTween.gd" id="20_mqcnp"]
+[ext_resource type="Texture2D" uid="uid://bfaore74n0cmi" path="res://Ships/Sprites/TestShip.png" id="24_awkj1"]
+[ext_resource type="Resource" uid="uid://cs8mailvhbj6e" path="res://Ships/TestShip.tres" id="25_lwdsg"]
+[ext_resource type="Script" uid="uid://cgspee3li05r0" path="res://ShipAI.gd" id="25_ss8fl"]
+[ext_resource type="Script" uid="uid://30tqgtstp775" path="res://AggroBox.gd" id="27_aitcm"]
+[ext_resource type="Script" uid="uid://bjgaqt85w0t6s" path="res://HitBox.gd" id="27_n1nlt"]
+
+[sub_resource type="Environment" id="Environment_hag48"]
+background_mode = 3
+tonemap_mode = 3
+glow_enabled = true
+glow_intensity = 0.78
+glow_strength = 1.19
+glow_bloom = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_jvoc5"]
+font_color = Color(0, 0.34901962, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xqkmr"]
+font_size = 8
+font_color = Color(0, 0.34901962, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0juq3"]
+font_size = 6
+font_color = Color(0, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_c1v1t"]
+font_size = 6
+font_color = Color(0, 0.34901962, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_c1v1t"]
+colors = PackedColorArray(1, 1, 0, 1, 18.892157, 18.892157, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jvoc5"]
+gradient = SubResource("Gradient_c1v1t")
+width = 155
+height = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_7gk3i"]
+font_size = 24
+font_color = Color(0, 0.79595864, 0, 1)
+outline_size = 14
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwdsg"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1nlt"]
+radius = 1.0
+
+[node name="PlanetScene" type="Node2D" unique_id=1034310814]
+
+[node name="Deployed" type="Node2D" parent="." unique_id=1347112159]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=683387870]
+environment = SubResource("Environment_hag48")
+
+[node name="Map" type="Node2D" parent="." unique_id=1737625415]
+
+[node name="SpaceFull" type="Parallax2D" parent="Map" unique_id=1591525196]
+repeat_size = Vector2(500, 500)
+repeat_times = 10
+
+[node name="Space" type="Sprite2D" parent="Map/SpaceFull" unique_id=995012635]
+modulate = Color(0.68235296, 0.69411767, 1, 1)
+texture = ExtResource("1_qerpb")
+offset = Vector2(0, -16)
+
+[node name="StarsParallax" type="Parallax2D" parent="Map" unique_id=1455498597]
+modulate = Color(0.24115604, 0.24115607, 0.24115595, 1)
+repeat_size = Vector2(500, 500)
+autoscroll = Vector2(-1, -1)
+repeat_times = 10
+
+[node name="Stars" type="Sprite2D" parent="Map/StarsParallax" unique_id=1445695019]
+texture = ExtResource("5_3vexp")
+
+[node name="Planet" type="Sprite2D" parent="Map" unique_id=358970249]
+modulate = Color(1.753959, 1.753959, 1.753959, 1)
+clip_children = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vrf0h")
+
+[node name="Lighting" type="Sprite2D" parent="Map/Planet" unique_id=1043152271]
+modulate = Color(1.0862398, 1.0862398, 1.0862398, 0.039215688)
+show_behind_parent = true
+texture = ExtResource("8_gsyrf")
+
+[node name="Glow" type="Sprite2D" parent="Map/Planet" unique_id=787229080]
+modulate = Color(0, 0.044742875, 1.3266667, 0.007843138)
+show_behind_parent = true
+texture = ExtResource("7_vrf0h")
+
+[node name="Waterparallax" type="Parallax2D" parent="Map/Planet" unique_id=2143207447]
+modulate = Color(0.44653463, 0.9133466, 0.7346901, 1)
+repeat_size = Vector2(320, 320)
+autoscroll = Vector2(15, 0)
+repeat_times = 3
+
+[node name="Water" type="Sprite2D" parent="Map/Planet/Waterparallax" unique_id=908916743]
+modulate = Color(0.5255883, 0.5255883, 0.5255883, 1)
+texture = ExtResource("1_hag48")
+
+[node name="LandmassParallax" type="Parallax2D" parent="Map/Planet" unique_id=540909792]
+repeat_size = Vector2(320, 320)
+autoscroll = Vector2(2, 1)
+repeat_times = 3
+
+[node name="Coastlines" type="Sprite2D" parent="Map/Planet/LandmassParallax" unique_id=906545166]
+modulate = Color(0.34407556, 0.3440758, 0.34407565, 1)
+texture = ExtResource("2_rad76")
+
+[node name="Clouds" type="Node2D" parent="Map/Planet" unique_id=158623565]
+modulate = Color(0.91228896, 0.91228884, 0.91228896, 0.0627451)
+
+[node name="Cloud" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1034800746]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-153, -450)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(10, 4)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud" unique_id=630677911]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.45490196)
+texture = ExtResource("3_3vexp")
+
+[node name="Cloud2" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1953593519]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-298, -557)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(6, 3)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud2" unique_id=205797362]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.70980394)
+texture = ExtResource("4_qerpb")
+
+[node name="Cloud3" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=202937007]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-327, -419)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(11, 5)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud3" unique_id=283329074]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.33333334)
+texture = ExtResource("5_vrf0h")
+
+[node name="Cloud4" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1606087489]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-418, -533)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(5, 3)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud4" unique_id=434878881]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.70980394)
+texture = ExtResource("6_gsyrf")
+
+[node name="Cloud5" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1880911576]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-178, -162)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(2, 2)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud5" unique_id=1586113157]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.05882353)
+texture = ExtResource("7_q2wn2")
+
+[node name="Cloud6" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=696765496]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-10, -299)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(5, 3)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud6" unique_id=1395666801]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.09411765)
+texture = ExtResource("3_3vexp")
+
+[node name="Cloud7" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=794245656]
+modulate = Color(1.4369954, 1.4369954, 1.4369954, 1)
+scroll_offset = Vector2(100, 50)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(3, 2)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud7" unique_id=218762408]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.11764706)
+texture = ExtResource("4_qerpb")
+
+[node name="Cloud8" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1089231787]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-136, -154)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(7, 4)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud8" unique_id=1945096298]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.70980394)
+texture = ExtResource("5_vrf0h")
+
+[node name="Cloud9" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1894625010]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-270, -332)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(7, 4)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud9" unique_id=469918444]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.26666668)
+texture = ExtResource("6_gsyrf")
+
+[node name="Cloud10" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=680793358]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-98, -150)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(4, 3)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/Cloud10" unique_id=715717322]
+modulate = Color(0.5764706, 0.5764706, 0.5764706, 0.25882354)
+texture = ExtResource("7_q2wn2")
+
+[node name="CloudShadow" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=619261142]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-423, -483)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(10, 2)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow" unique_id=1576939415]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("3_3vexp")
+
+[node name="CloudShadow2" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1978866003]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-249, -477)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(6, 3)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow2" unique_id=165522121]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("4_qerpb")
+
+[node name="CloudShadow3" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=619624290]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-254, -385)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(11, 1)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow3" unique_id=1792834744]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("5_vrf0h")
+
+[node name="CloudShadow4" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=203170706]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-268, -408)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(5, 1)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow4" unique_id=703886914]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("6_gsyrf")
+
+[node name="CloudShadow5" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1884389279]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-217, -429)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(2, 1)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow5" unique_id=1014132462]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("7_q2wn2")
+
+[node name="CloudShadow6" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=553915474]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-197, -541)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(5, 1)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow6" unique_id=1394015563]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("3_3vexp")
+
+[node name="CloudShadow7" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=559657770]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-329, -555)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(3, 1)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow7" unique_id=51373623]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("4_qerpb")
+
+[node name="CloudShadow8" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=444456930]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-419, -418)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(7, 3)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow8" unique_id=103580682]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("5_vrf0h")
+
+[node name="CloudShadow9" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=2036263849]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-198, -416)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(7, 1)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow9" unique_id=58832702]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("6_gsyrf")
+
+[node name="CloudShadow10" type="Parallax2D" parent="Map/Planet/Clouds" unique_id=1088995200]
+modulate = Color(1.0467088, 1.0467088, 1.0467088, 0.54901963)
+scroll_offset = Vector2(-298, -515)
+repeat_size = Vector2(160, 160)
+autoscroll = Vector2(4, 2)
+repeat_times = 6
+
+[node name="Cloud1" type="Sprite2D" parent="Map/Planet/Clouds/CloudShadow10" unique_id=1956589332]
+modulate = Color(0, 0, 0, 0.14901961)
+texture = ExtResource("7_q2wn2")
+
+[node name="GlowLight" type="Sprite2D" parent="Map/Planet" unique_id=585059425]
+modulate = Color(0, 0, 0.07186884, 0.41568628)
+show_behind_parent = true
+texture = ExtResource("6_qerpb")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=497162015]
+
+[node name="UITAB" type="Control" parent="UI" unique_id=1054653427]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.3, 0.3)
+
+[node name="Content" type="VBoxContainer" parent="UI/UITAB" unique_id=2093066495]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+
+[node name="ShopHeader" type="Panel" parent="UI/UITAB/Content" unique_id=1493021312]
+custom_minimum_size = Vector2(320, 25)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="MATOSYS" type="Label" parent="UI/UITAB/Content/ShopHeader" unique_id=356235549]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -11.5
+offset_right = 37.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "MATOSYS"
+label_settings = SubResource("LabelSettings_jvoc5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BalanceText" type="Label" parent="UI/UITAB/Content/ShopHeader/MATOSYS" unique_id=1263840682]
+layout_mode = 0
+offset_left = 92.5
+offset_top = 5.5
+offset_right = 158.5
+offset_bottom = 17.5
+text = "Energy:"
+label_settings = SubResource("LabelSettings_xqkmr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BalanceArea" type="Panel" parent="UI/UITAB/Content/ShopHeader/MATOSYS" unique_id=1543898332]
+layout_mode = 0
+offset_left = 142.5
+offset_top = 5.0
+offset_right = 192.5
+offset_bottom = 20.0
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="BalanceLabel" type="Label" parent="UI/UITAB/Content/ShopHeader/MATOSYS/BalanceArea" unique_id=500302689]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "500"
+label_settings = SubResource("LabelSettings_0juq3")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("15_q2wn2")
+
+[node name="CloseButton" type="Button" parent="UI/UITAB/Content/ShopHeader" unique_id=485797381 node_paths=PackedStringArray("ui")]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 22.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("16_pbg03")
+theme_override_styles/pressed = ExtResource("16_pbg03")
+theme_override_styles/hover = ExtResource("16_pbg03")
+theme_override_styles/disabled = ExtResource("16_pbg03")
+theme_override_styles/focus = ExtResource("16_pbg03")
+text = "X"
+script = ExtResource("16_xqkmr")
+ui = NodePath("../../Control")
+
+[node name="Control" type="Control" parent="UI/UITAB/Content" unique_id=84973636]
+layout_mode = 2
+
+[node name="Tabs" type="Panel" parent="UI/UITAB/Content/Control" unique_id=864538859]
+custom_minimum_size = Vector2(320, 25)
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 25.0
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/UITAB/Content/Control/Tabs" unique_id=1097925069]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 25.0
+theme_override_constants/separation = 0
+
+[node name="EconomyButton" type="Button" parent="UI/UITAB/Content/Control/Tabs/HBoxContainer" unique_id=1221860846 node_paths=PackedStringArray("all_tabs", "tab_opened")]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8745098, 0, 1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("16_pbg03")
+theme_override_styles/pressed = ExtResource("16_pbg03")
+theme_override_styles/hover = ExtResource("16_pbg03")
+theme_override_styles/disabled = ExtResource("16_pbg03")
+theme_override_styles/focus = ExtResource("16_pbg03")
+text = "Economy"
+clip_text = true
+script = ExtResource("17_xqkmr")
+all_tabs = [NodePath("../../../EconomyShop"), NodePath("../../../DefenceShop"), NodePath("../../../OffenceShop")]
+tab_opened = NodePath("../../../EconomyShop")
+
+[node name="DefenseButton" type="Button" parent="UI/UITAB/Content/Control/Tabs/HBoxContainer" unique_id=1664003712 node_paths=PackedStringArray("all_tabs", "tab_opened")]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.43133962, 0.4313406, 0.43133983, 1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("16_pbg03")
+theme_override_styles/pressed = ExtResource("16_pbg03")
+theme_override_styles/hover = ExtResource("16_pbg03")
+theme_override_styles/disabled = ExtResource("16_pbg03")
+theme_override_styles/focus = ExtResource("16_pbg03")
+text = "Defence"
+clip_text = true
+script = ExtResource("17_xqkmr")
+all_tabs = [NodePath("../../../EconomyShop"), NodePath("../../../DefenceShop"), NodePath("../../../OffenceShop")]
+tab_opened = NodePath("../../../DefenceShop")
+
+[node name="OffensiveButton" type="Button" parent="UI/UITAB/Content/Control/Tabs/HBoxContainer" unique_id=1810589525 node_paths=PackedStringArray("all_tabs", "tab_opened")]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7058824, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("16_pbg03")
+theme_override_styles/pressed = ExtResource("16_pbg03")
+theme_override_styles/hover = ExtResource("16_pbg03")
+theme_override_styles/disabled = ExtResource("16_pbg03")
+theme_override_styles/focus = ExtResource("16_pbg03")
+text = "Offensive"
+clip_text = true
+script = ExtResource("17_xqkmr")
+all_tabs = [NodePath("../../../EconomyShop"), NodePath("../../../DefenceShop"), NodePath("../../../OffenceShop")]
+tab_opened = NodePath("../../../OffenceShop")
+
+[node name="ShieldStability" type="Label" parent="UI/UITAB/Content/Control/Tabs/HBoxContainer" unique_id=548849183]
+layout_mode = 2
+text = " Shield Stability:"
+label_settings = SubResource("LabelSettings_c1v1t")
+
+[node name="HpBar" type="Control" parent="UI/UITAB/Content/Control/Tabs/HBoxContainer" unique_id=658992895]
+z_index = 10
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/UITAB/Content/Control/Tabs/HBoxContainer/HpBar" unique_id=1541849626 node_paths=PackedStringArray("forcefield", "hp_label")]
+layout_mode = 0
+offset_left = 2.9999695
+offset_top = 4.999998
+offset_right = 195.99997
+offset_bottom = 45.0
+scale = Vector2(0.4, 0.4)
+max_value = 10.0
+step = 0.1
+value = 10.0
+rounded = true
+texture_over = ExtResource("18_c1v1t")
+texture_progress = SubResource("GradientTexture2D_jvoc5")
+texture_progress_offset = Vector2(18, 0)
+script = ExtResource("19_7gk3i")
+forcefield = NodePath("../../../../../../../../Forcefield")
+hp_label = NodePath("HpLabel")
+
+[node name="HpLabel" type="Label" parent="UI/UITAB/Content/Control/Tabs/HBoxContainer/HpBar/TextureProgressBar" unique_id=1099484352]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_7gk3i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TabsSpacer" type="Panel" parent="UI/UITAB/Content/Control" unique_id=237862140]
+custom_minimum_size = Vector2(320, 25)
+layout_mode = 0
+offset_top = 25.000002
+offset_right = 320.0
+offset_bottom = 50.0
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="EconomyShop" type="Control" parent="UI/UITAB/Content/Control" unique_id=1710699797]
+visible = false
+anchors_preset = 0
+offset_top = 50.0
+offset_right = 320.0
+offset_bottom = 50.0
+
+[node name="ShopItems" type="GridContainer" parent="UI/UITAB/Content/Control/EconomyShop" unique_id=222746183]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 20.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="DefenceShop" type="Control" parent="UI/UITAB/Content/Control" unique_id=419400424]
+visible = false
+anchors_preset = 0
+offset_top = 50.0
+offset_right = 320.0
+offset_bottom = 50.0
+
+[node name="ShopItems" type="GridContainer" parent="UI/UITAB/Content/Control/DefenceShop" unique_id=468501280]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 20.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="OffenceShop" type="Control" parent="UI/UITAB/Content/Control" unique_id=1325526150]
+visible = false
+anchors_preset = 0
+offset_top = 50.0
+offset_right = 320.0
+offset_bottom = 50.0
+
+[node name="ShopItems" type="GridContainer" parent="UI/UITAB/Content/Control/OffenceShop" unique_id=310883763]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 20.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="Player" parent="." unique_id=761089432 node_paths=PackedStringArray("money_ui") instance=ExtResource("16_q2wn2")]
+money_ui = NodePath("../UI/UITAB/Content/ShopHeader/MATOSYS/BalanceArea/BalanceLabel")
+energy = 1.0
+
+[node name="Forcefield" type="Node2D" parent="." unique_id=60064998 node_paths=PackedStringArray("forcefield_node")]
+script = ExtResource("20_jvoc5")
+forcefield_node = NodePath("Visibility")
+
+[node name="Visibility" type="Node2D" parent="Forcefield" unique_id=225190488]
+
+[node name="ForceField" type="Sprite2D" parent="Forcefield/Visibility" unique_id=1331703309]
+modulate = Color(0.70975083, 0.70975083, 0.70975083, 0.102000006)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("18_0juq3")
+script = ExtResource("20_mqcnp")
+start_alpha = 0.1
+end_alpha = 0.2
+duration = 2.0
+
+[node name="TestShip" type="CharacterBody2D" parent="." unique_id=221604955 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(69.99999, -150.99998)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+
+[node name="Sprite" type="Sprite2D" parent="TestShip" unique_id=1319790329]
+modulate = Color(0, 0.59000057, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip" unique_id=1443564238 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip/Hitbox" unique_id=1714329185]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip" unique_id=677531052]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip/AggroRadius" unique_id=1453875324]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
+
+[node name="TestShip2" type="CharacterBody2D" parent="." unique_id=1737635458 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(58.000008, -155.00002)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+
+[node name="Sprite" type="Sprite2D" parent="TestShip2" unique_id=1981078952]
+modulate = Color(0, 0.59000057, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip2" unique_id=967899599 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip2/Hitbox" unique_id=1271819546]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip2" unique_id=664013486]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip2/AggroRadius" unique_id=569206159]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
+
+[node name="TestShip3" type="CharacterBody2D" parent="." unique_id=659053619 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(66.99999, -164)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+
+[node name="Sprite" type="Sprite2D" parent="TestShip3" unique_id=471226348]
+modulate = Color(0, 0.59000057, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip3" unique_id=800982105 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip3/Hitbox" unique_id=2004532709]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip3" unique_id=1760527559]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip3/AggroRadius" unique_id=811649800]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
+
+[node name="TestShip4" type="CharacterBody2D" parent="." unique_id=599072616 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(79.00001, -158)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+
+[node name="Sprite" type="Sprite2D" parent="TestShip4" unique_id=1980593918]
+modulate = Color(0, 0.59000057, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip4" unique_id=321757594 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip4/Hitbox" unique_id=42240499]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip4" unique_id=1115624885]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip4/AggroRadius" unique_id=1349459033]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
+
+[node name="TestShip5" type="CharacterBody2D" parent="." unique_id=923884171 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(-155, -144.99998)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+ship_team = 2
+
+[node name="Sprite" type="Sprite2D" parent="TestShip5" unique_id=263230501]
+modulate = Color(0.54004896, 0, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip5" unique_id=1517516406 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip5/Hitbox" unique_id=77613408]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip5" unique_id=336343755]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip5/AggroRadius" unique_id=1621592268]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
+
+[node name="TestShip6" type="CharacterBody2D" parent="." unique_id=1548470120 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(-166.99997, -149.00002)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+ship_team = 2
+
+[node name="Sprite" type="Sprite2D" parent="TestShip6" unique_id=1485057720]
+modulate = Color(0.54004896, 0, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip6" unique_id=1291760863 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip6/Hitbox" unique_id=415828959]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip6" unique_id=1223977766]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip6/AggroRadius" unique_id=650951782]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
+
+[node name="TestShip7" type="CharacterBody2D" parent="." unique_id=105751110 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(-158, -158)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+ship_team = 2
+
+[node name="Sprite" type="Sprite2D" parent="TestShip7" unique_id=1668198485]
+modulate = Color(0.54004896, 0, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip7" unique_id=2131017409 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip7/Hitbox" unique_id=1356283251]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip7" unique_id=2124963319]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip7/AggroRadius" unique_id=1228450528]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
+
+[node name="TestShip8" type="CharacterBody2D" parent="." unique_id=359181993 node_paths=PackedStringArray("hitbox", "aggrobox")]
+position = Vector2(-145.99997, -152)
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("25_ss8fl")
+_stats = ExtResource("25_lwdsg")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+ship_team = 2
+
+[node name="Sprite" type="Sprite2D" parent="TestShip8" unique_id=1667169629]
+modulate = Color(0.54004896, 0, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("24_awkj1")
+
+[node name="Hitbox" type="Area2D" parent="TestShip8" unique_id=1144946173 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("27_n1nlt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip8/Hitbox" unique_id=798789543]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="TestShip8" unique_id=380557877]
+collision_layer = 4
+script = ExtResource("27_aitcm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip8/AggroRadius" unique_id=673638336]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)

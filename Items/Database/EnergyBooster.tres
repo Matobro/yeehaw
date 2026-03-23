@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dl35y3yyhnhnn"]
+
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Items/ItemData.gd" id="1_0ihsw"]
+[ext_resource type="Texture2D" uid="uid://y2lfueui060h" path="res://Items/Sprites/ForceField.png" id="1_gv816"]
+
+[resource]
+script = ExtResource("1_0ihsw")
+item_category = 1
+item_type = 1
+power_up_type = 3
+power_up_amount = 1.0
+item_icon = ExtResource("1_gv816")
+item_base_price = 50.0
+item_name = "Energy Booster"
+price_scaling = 10.0
+item_description = "Increases maximum shield by [color=green]{flat}[/color]
+Current: [color=yellow]{max_shield}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"
