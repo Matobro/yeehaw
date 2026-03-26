@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://ckp2kyq8kimpk"]
+
+[ext_resource type="Script" uid="uid://p3u5nd1r4bon" path="res://Ships/PlanetKillerBullet.gd" id="1_dbnp0"]
+[ext_resource type="Texture2D" uid="uid://c6rudv57chm51" path="res://Ships/Sprites/Bullet.png" id="2_o8jy8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxiof"]
+radius = 4.0
+
+[node name="Bullet" type="Area2D" unique_id=1235916506]
+modulate = Color(4.415934, 4.415934, 4.415934, 1)
+z_index = 11
+collision_layer = 2
+collision_mask = 48
+script = ExtResource("1_dbnp0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1893412359]
+shape = SubResource("CircleShape2D_dxiof")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2146726073]
+modulate = Color(1, 0, 0, 1)
+texture = ExtResource("2_o8jy8")

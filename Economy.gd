@@ -1,18 +1,27 @@
 extends Node
 
-var base_energy_harvest: float = 0.1
+var base_energy_harvest: float = 1.0 # flat amount
 var energy_multiplier: float = 1.0  # percentage multiplier
 var energy_flat_bonus: float = 0.0  # flat multiplier
-var energy_harvest_speed: float = 5.0
+var energy_harvest_speed: float = 5.0 # in seconds
 var energy_harvest_bonus: float = 0.0
 
-var shield_max: float = 10.0
-var shield_regeneration_delay: float = 5.0
-var shield_regeneration_amount: float = 0.1
-var shield_regeneration_speed: float = 1.0
+var shield_max: float = 100.0
+var shield_regeneration_delay: float = 5.0 # in seconds
+var shield_regeneration_delay_min: float = 0.1
+var shield_regeneration_amount: float = 1.0
+var shield_regeneration_speed: float = 1.0 # in seconds
+var shield_regeneration_speed_min: float = 0.1
 
+var ship_building_speed: float = 1.0 # in seconds
+var max_ship_amount: int = 10 # per building
 
-func add_power_up(type: PowerUp.Type, amount: float):
+var point_defence_speed: float = 2.0 # in seconds
+var point_defence_speed_min: float = 0.1
+
+func add_power_up(type: PowerUp.Type, amount: float) -> bool:
+	var success: bool = true
+
 	match type:
 		PowerUp.Type.ENERGY_MULTIPLIER:
 			energy_multiplier += amount
@@ -23,11 +32,23 @@ func add_power_up(type: PowerUp.Type, amount: float):
 		PowerUp.Type.MAX_SHIELD:
 			shield_max += amount
 		PowerUp.Type.SHIELD_DELAY:
-			shield_regeneration_delay -= amount
+			if shield_regeneration_delay > shield_regeneration_delay_min:
+				shield_regeneration_delay = clampf(shield_regeneration_delay - amount, shield_regeneration_delay_min, shield_regeneration_delay)
+			else: success = false
 		PowerUp.Type.SHIELD_REGENERATION:
 			shield_regeneration_amount += amount
+		PowerUp.Type.SHIELD_SPEED:
+			if shield_regeneration_speed > shield_regeneration_speed_min:
+				shield_regeneration_speed = clampf(shield_regeneration_speed - amount, shield_regeneration_speed_min, shield_regeneration_speed)
+			else: success = false
+		PowerUp.Type.PD_SPEED:
+			if point_defence_speed > point_defence_speed_min:
+				point_defence_speed = clampf(point_defence_speed - amount, point_defence_speed_min, point_defence_speed)
+			else: success = false
 		_:
-			pass
+			success = false
+
+	return success
 
 
 func add_energy_multiplier(amount):
@@ -60,6 +81,10 @@ func get_shield_regeneration_delay() -> float:
 	return shield_regeneration_delay
 
 
+func get_shield_regeneration_delay_min() -> float:
+	return shield_regeneration_delay_min
+
+
 func get_shield_regeneration_amount() -> float:
 	return shield_regeneration_amount
 
@@ -70,3 +95,19 @@ func get_shield_regeneration_speed() -> float:
 
 func get_max_shield() -> float:
 	return shield_max
+
+
+func get_ship_building_speed() -> float:
+	return ship_building_speed
+
+
+func get_max_ship_count() -> int:
+	return max_ship_amount
+
+
+func get_point_defence_speed() -> float:
+	return point_defence_speed
+
+
+func get_point_defence_speed_min() -> float:
+	return point_defence_speed_min

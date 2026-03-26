@@ -7,6 +7,13 @@ extends Resource
 @export var attack_range: float
 @export var attack_speed: float
 
+@export_category("Planet Combat")
+@export var planet_bullet_scene: PackedScene
+@export var planet_bullet_damage: float
+@export var planet_bullet_speed: float
+@export var planet_attack_speed: float
+@export var planet_bullet_scale: float
+
 @export_category("Bullet")
 @export var bullet_scene: PackedScene
 @export var bullet_damage: float
@@ -21,5 +28,8 @@ extends Resource
 
 @export_category("Stats")
 @export var max_health: float
+
+@export_category("Loot")
+@export var energy_dropped: float
 
 var current_health: float

@@ -59,14 +59,11 @@ func shop_item_purchased(shop_button: ShopButton):
 	var player_energy: float = player.energy
 	var item_type: int = shop_button.item_type
 	var item_price: float = shop_button.item_price
+	var success: bool
 
 	## Money stuff
 	if !has_funds(player_energy, item_price):
 		return
-
-	player.energy -= item_price
-	player.update_money()
-	shop_button.item_purchased()
 
 	# Deployable
 	if item_type == 0:
@@ -75,12 +72,21 @@ func shop_item_purchased(shop_button: ShopButton):
 		var new_item = item_scene.instantiate()
 		add_child(new_item)
 		new_item.item_purchased(player)
+		success = true
 
 	# PowerUp
 	elif item_type == 1:
 		var power_up_type: PowerUp.Type = shop_button.power_up_type
 		var power_up_amount: float = shop_button.power_up_amount
-		Economy.add_power_up(power_up_type, power_up_amount)
+
+		# Some items are limited such as attack speed, its checked here if already at min
+		success = Economy.add_power_up(power_up_type, power_up_amount)
+
+	# If purchase made
+	if success:
+		player.energy -= item_price
+		player.update_money()
+		shop_button.item_purchased()
 
 
 func has_funds(energy, price) -> bool:

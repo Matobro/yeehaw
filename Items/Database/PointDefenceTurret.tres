@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://coau4cspiqmvg"]
+
+[ext_resource type="PackedScene" uid="uid://dl0uk3lq14spa" path="res://Satellite/PointDefenceTurret.tscn" id="1_8r35n"]
+[ext_resource type="Texture2D" uid="uid://d0kmrj2b6oooy" path="res://Items/Sprites/AutocannonIcon.png" id="1_08yo6"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Items/ItemData.gd" id="1_vtm2t"]
+
+[resource]
+script = ExtResource("1_vtm2t")
+item_category = 1
+item_scene = ExtResource("1_8r35n")
+item_icon = ExtResource("1_08yo6")
+item_base_price = 500.0
+item_name = "Point Defence"
+price_scaling = 1.5
+item_description = "Shoots down incoming bombs
+
+Bomb intercepted every [color=yellow]{pd_speed}s[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

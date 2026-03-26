@@ -63,7 +63,7 @@ func update_item_data():
 
 
 func item_purchased():
-	item_price += item_base_price * price_scaling
+	item_price = item_price * price_scaling
 	amount_owned += 1
 	amount_owned_label.text = str(amount_owned)
 	await get_tree().physics_frame
@@ -91,12 +91,15 @@ func format_description(text: String) -> String:
 		. replace("{total_energy}", str("%0.1f" % Economy.get_total_energy_bonus()))
 		. replace("{harvest_speed}", str("%0.1f" % Economy.get_total_energy_harvest_speed()))
 		. replace("{max_shield}", str("%0.1f" % Economy.get_max_shield()))
-		. replace("{shield_delay}", str("%0.1f" % Economy.get_shield_regeneration_delay()))
+		. replace("{shield_delay}", str("%0.1f" % Economy.get_shield_regeneration_delay()))\
+		.replace("{regeneration_amount}", str("%0.1f" % Economy.get_shield_regeneration_amount()))
 		. replace("{regeneration_speed}", str("%0.1f" % Economy.get_shield_regeneration_speed()))
 		. replace("{energy_flat_bonus}", str("%0.1f" % Economy.get_energy_flat_bonus()))
-		. replace("{energy_multiplier}", str("%0.1f" % Economy.get_energy_multiplier()))
+		. replace("{energy_multiplier}", "%d%%" % int((Economy.get_energy_multiplier() * 100) - 100.0))
 		. replace(
 			"{satellite_production}",
 			str("%0.1f" % (Economy.get_energy_per_second() * amount_owned))
-		)
+		)\
+		.replace("{pd_speed}", str("%0.1f" % Economy.get_point_defence_speed()))\
+		.replace("{max_ships}", str(Economy.get_max_ship_count()))\
 	)

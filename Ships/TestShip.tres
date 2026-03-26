@@ -2,18 +2,26 @@
 
 [ext_resource type="Script" uid="uid://gb7wrmlg1axt" path="res://Ships/ShipStats.gd" id="1_n8jfp"]
 [ext_resource type="PackedScene" uid="uid://crgby3stfd628" path="res://Ships/Bullet.tscn" id="1_w6xgk"]
+[ext_resource type="PackedScene" uid="uid://ckp2kyq8kimpk" path="res://Ships/PlanetKillerBullet.tscn" id="2_li5f4"]
 
 [resource]
 script = ExtResource("1_n8jfp")
 seek_range = 1000.0
 attack_range = 100.0
-attack_speed = 0.3
+attack_speed = 1.0
+planet_bullet_scene = ExtResource("2_li5f4")
+planet_bullet_damage = 2.0
+planet_bullet_speed = 25.0
+planet_attack_speed = 5.0
+planet_bullet_scale = 0.2
 bullet_scene = ExtResource("1_w6xgk")
-bullet_damage = 5.0
+bullet_damage = 1.0
 bullet_speed = 100.0
 bullet_scale = 0.1
 movement_speed = 20.0
-turn_speed = 1.0
+turn_speed = 52.0
 acceleration = 5.0
-patrol_radius = 50.0
+patrol_radius = 200.0
+max_health = 10.0
+energy_dropped = 25.0
 metadata/_custom_type_script = "uid://gb7wrmlg1axt"

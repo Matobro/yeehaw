@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b0lspdcpbhvj0" path="res://Planet/Coastlines.png" id="2_rad76"]
 [ext_resource type="Texture2D" uid="uid://w1ggf3lva85r" path="res://Planet/PlanetMask.png" id="2_vrf0h"]
 [ext_resource type="Texture2D" uid="uid://hbaqakusechw" path="res://Planet/cloud1.png" id="3_3vexp"]
+[ext_resource type="Script" uid="uid://chmv7tkrujkme" path="res://Planet.gd" id="4_aitcm"]
 [ext_resource type="Texture2D" uid="uid://en0wff85pqn4" path="res://Planet/cloud2.png" id="4_qerpb"]
 [ext_resource type="Texture2D" uid="uid://uw58qd35e3sk" path="res://Planet/Stars.png" id="5_3vexp"]
 [ext_resource type="Texture2D" uid="uid://newxaty2euvm" path="res://Planet/cloud3.png" id="5_vrf0h"]
@@ -13,7 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://dif8qahec4e85" path="res://Planet/cloud5.png" id="7_q2wn2"]
 [ext_resource type="Texture2D" uid="uid://cgw06kcfy4tna" path="res://Planet/Glow.png" id="7_vrf0h"]
 [ext_resource type="Texture2D" uid="uid://c3tq5t3n2m0vg" path="res://Planet/Lighting.png" id="8_gsyrf"]
+[ext_resource type="Script" uid="uid://clvo8dop3g0rx" path="res://AlarmArea.gd" id="14_awkj1"]
+[ext_resource type="Script" uid="uid://dtyt1lhh1m368" path="res://BulletArea.gd" id="15_lwdsg"]
 [ext_resource type="Script" uid="uid://cdjd8nuxr3ad3" path="res://MoneyUI.gd" id="15_q2wn2"]
+[ext_resource type="Script" uid="uid://c7o7qqqm7jifj" path="res://PlanetHitbox.gd" id="15_ss8fl"]
 [ext_resource type="StyleBox" uid="uid://cj8frm5kh0j20" path="res://UI/Styles/TerminalDefault.tres" id="16_pbg03"]
 [ext_resource type="PackedScene" uid="uid://mkpvh54x6f1v" path="res://Player.tscn" id="16_q2wn2"]
 [ext_resource type="Script" uid="uid://u4gqwxe3bayw" path="res://UIHideButton.gd" id="16_xqkmr"]
@@ -23,11 +27,6 @@
 [ext_resource type="Script" uid="uid://cw7y7jbq1nu4t" path="res://ShieldUI.gd" id="19_7gk3i"]
 [ext_resource type="Script" uid="uid://d1g0fjgubf7sx" path="res://Forcefield.gd" id="20_jvoc5"]
 [ext_resource type="Script" uid="uid://v182ga467qft" path="res://GlowTween.gd" id="20_mqcnp"]
-[ext_resource type="Texture2D" uid="uid://bfaore74n0cmi" path="res://Ships/Sprites/TestShip.png" id="24_awkj1"]
-[ext_resource type="Resource" uid="uid://cs8mailvhbj6e" path="res://Ships/TestShip.tres" id="25_lwdsg"]
-[ext_resource type="Script" uid="uid://cgspee3li05r0" path="res://ShipAI.gd" id="25_ss8fl"]
-[ext_resource type="Script" uid="uid://30tqgtstp775" path="res://AggroBox.gd" id="27_aitcm"]
-[ext_resource type="Script" uid="uid://bjgaqt85w0t6s" path="res://HitBox.gd" id="27_n1nlt"]
 
 [sub_resource type="Environment" id="Environment_hag48"]
 background_mode = 3
@@ -36,6 +35,18 @@ glow_enabled = true
 glow_intensity = 0.78
 glow_strength = 1.19
 glow_bloom = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gk3i"]
+radius = 400.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwdsg"]
+radius = 70.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awkj1"]
+radius = 500.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ss8fl"]
+radius = 20.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_jvoc5"]
 font_color = Color(0, 0.34901962, 0, 1)
@@ -66,13 +77,8 @@ font_color = Color(0, 0.79595864, 0, 1)
 outline_size = 14
 outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lwdsg"]
-radius = 20.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_n1nlt"]
-radius = 1.0
-
 [node name="PlanetScene" type="Node2D" unique_id=1034310814]
+y_sort_enabled = true
 
 [node name="Deployed" type="Node2D" parent="." unique_id=1347112159]
 
@@ -99,11 +105,15 @@ repeat_times = 10
 [node name="Stars" type="Sprite2D" parent="Map/StarsParallax" unique_id=1445695019]
 texture = ExtResource("5_3vexp")
 
-[node name="Planet" type="Sprite2D" parent="Map" unique_id=358970249]
+[node name="Planet" type="Sprite2D" parent="Map" unique_id=358970249 node_paths=PackedStringArray("alarm_area", "ally_area", "bullet_area")]
 modulate = Color(1.753959, 1.753959, 1.753959, 1)
 clip_children = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_vrf0h")
+script = ExtResource("4_aitcm")
+alarm_area = NodePath("AlarmArea")
+ally_area = NodePath("AllyArea")
+bullet_area = NodePath("BulletArea")
 
 [node name="Lighting" type="Sprite2D" parent="Map/Planet" unique_id=1043152271]
 modulate = Color(1.0862398, 1.0862398, 1.0862398, 0.039215688)
@@ -361,6 +371,43 @@ texture = ExtResource("7_q2wn2")
 modulate = Color(0, 0, 0.07186884, 0.41568628)
 show_behind_parent = true
 texture = ExtResource("6_qerpb")
+
+[node name="AlarmArea" type="Area2D" parent="Map/Planet" unique_id=35251178 node_paths=PackedStringArray("alarm_area", "ally_area")]
+collision_layer = 8
+script = ExtResource("14_awkj1")
+alarm_area = NodePath(".")
+ally_area = NodePath("../AllyArea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Planet/AlarmArea" unique_id=1238922613]
+top_level = true
+shape = SubResource("CircleShape2D_7gk3i")
+debug_color = Color(0.15278225, 0, 0.015852347, 0.23529412)
+
+[node name="BulletArea" type="Area2D" parent="Map/Planet" unique_id=1526887820]
+collision_layer = 32
+collision_mask = 2
+script = ExtResource("15_lwdsg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Planet/BulletArea" unique_id=678705897]
+top_level = true
+shape = SubResource("CircleShape2D_lwdsg")
+debug_color = Color(0.15294118, 0.19607843, 0.015686275, 0.23529412)
+
+[node name="AllyArea" type="Area2D" parent="Map/Planet" unique_id=1693761849]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Planet/AllyArea" unique_id=150377497]
+top_level = true
+shape = SubResource("CircleShape2D_awkj1")
+debug_color = Color(0.15294118, 0.30588236, 0.015686275, 0.09019608)
+
+[node name="Hitbox" type="Area2D" parent="Map/Planet" unique_id=795115932 groups=["Planet"]]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("15_ss8fl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/Planet/Hitbox" unique_id=476551095]
+shape = SubResource("CircleShape2D_ss8fl")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=497162015]
 
@@ -620,11 +667,12 @@ columns = 4
 
 [node name="Player" parent="." unique_id=761089432 node_paths=PackedStringArray("money_ui") instance=ExtResource("16_q2wn2")]
 money_ui = NodePath("../UI/UITAB/Content/ShopHeader/MATOSYS/BalanceArea/BalanceLabel")
-energy = 1.0
+energy = 5110.0
 
-[node name="Forcefield" type="Node2D" parent="." unique_id=60064998 node_paths=PackedStringArray("forcefield_node")]
+[node name="Forcefield" type="Node2D" parent="." unique_id=60064998 node_paths=PackedStringArray("forcefield_node", "hitbox")]
 script = ExtResource("20_jvoc5")
 forcefield_node = NodePath("Visibility")
+hitbox = NodePath("../Map/Planet/Hitbox")
 
 [node name="Visibility" type="Node2D" parent="Forcefield" unique_id=225190488]
 
@@ -636,247 +684,3 @@ script = ExtResource("20_mqcnp")
 start_alpha = 0.1
 end_alpha = 0.2
 duration = 2.0
-
-[node name="TestShip" type="CharacterBody2D" parent="." unique_id=221604955 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(69.99999, -150.99998)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-
-[node name="Sprite" type="Sprite2D" parent="TestShip" unique_id=1319790329]
-modulate = Color(0, 0.59000057, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip" unique_id=1443564238 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip/Hitbox" unique_id=1714329185]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip" unique_id=677531052]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip/AggroRadius" unique_id=1453875324]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
-
-[node name="TestShip2" type="CharacterBody2D" parent="." unique_id=1737635458 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(58.000008, -155.00002)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-
-[node name="Sprite" type="Sprite2D" parent="TestShip2" unique_id=1981078952]
-modulate = Color(0, 0.59000057, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip2" unique_id=967899599 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip2/Hitbox" unique_id=1271819546]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip2" unique_id=664013486]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip2/AggroRadius" unique_id=569206159]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
-
-[node name="TestShip3" type="CharacterBody2D" parent="." unique_id=659053619 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(66.99999, -164)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-
-[node name="Sprite" type="Sprite2D" parent="TestShip3" unique_id=471226348]
-modulate = Color(0, 0.59000057, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip3" unique_id=800982105 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip3/Hitbox" unique_id=2004532709]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip3" unique_id=1760527559]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip3/AggroRadius" unique_id=811649800]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
-
-[node name="TestShip4" type="CharacterBody2D" parent="." unique_id=599072616 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(79.00001, -158)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-
-[node name="Sprite" type="Sprite2D" parent="TestShip4" unique_id=1980593918]
-modulate = Color(0, 0.59000057, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip4" unique_id=321757594 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip4/Hitbox" unique_id=42240499]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip4" unique_id=1115624885]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip4/AggroRadius" unique_id=1349459033]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
-
-[node name="TestShip5" type="CharacterBody2D" parent="." unique_id=923884171 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(-155, -144.99998)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-ship_team = 2
-
-[node name="Sprite" type="Sprite2D" parent="TestShip5" unique_id=263230501]
-modulate = Color(0.54004896, 0, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip5" unique_id=1517516406 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip5/Hitbox" unique_id=77613408]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip5" unique_id=336343755]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip5/AggroRadius" unique_id=1621592268]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
-
-[node name="TestShip6" type="CharacterBody2D" parent="." unique_id=1548470120 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(-166.99997, -149.00002)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-ship_team = 2
-
-[node name="Sprite" type="Sprite2D" parent="TestShip6" unique_id=1485057720]
-modulate = Color(0.54004896, 0, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip6" unique_id=1291760863 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip6/Hitbox" unique_id=415828959]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip6" unique_id=1223977766]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip6/AggroRadius" unique_id=650951782]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
-
-[node name="TestShip7" type="CharacterBody2D" parent="." unique_id=105751110 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(-158, -158)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-ship_team = 2
-
-[node name="Sprite" type="Sprite2D" parent="TestShip7" unique_id=1668198485]
-modulate = Color(0.54004896, 0, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip7" unique_id=2131017409 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip7/Hitbox" unique_id=1356283251]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip7" unique_id=2124963319]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip7/AggroRadius" unique_id=1228450528]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)
-
-[node name="TestShip8" type="CharacterBody2D" parent="." unique_id=359181993 node_paths=PackedStringArray("hitbox", "aggrobox")]
-position = Vector2(-145.99997, -152)
-scale = Vector2(0.1, 0.1)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("25_ss8fl")
-_stats = ExtResource("25_lwdsg")
-hitbox = NodePath("Hitbox")
-aggrobox = NodePath("AggroRadius")
-ship_team = 2
-
-[node name="Sprite" type="Sprite2D" parent="TestShip8" unique_id=1667169629]
-modulate = Color(0.54004896, 0, 0, 1)
-scale = Vector2(0.99999994, 0.99999994)
-texture = ExtResource("24_awkj1")
-
-[node name="Hitbox" type="Area2D" parent="TestShip8" unique_id=1144946173 groups=["Ship"]]
-collision_mask = 6
-script = ExtResource("27_n1nlt")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip8/Hitbox" unique_id=798789543]
-shape = SubResource("CircleShape2D_lwdsg")
-
-[node name="AggroRadius" type="Area2D" parent="TestShip8" unique_id=380557877]
-collision_layer = 4
-script = ExtResource("27_aitcm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TestShip8/AggroRadius" unique_id=673638336]
-shape = SubResource("CircleShape2D_n1nlt")
-debug_color = Color(1, 0.60038817, 0.70000815, 0.007)

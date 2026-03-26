@@ -21,6 +21,7 @@ PlayerManager="*uid://chnwj16tjnu3l"
 Economy="*uid://blo8t412uorq"
 FreeCamera="*uid://di2724cklipnv"
 Shop="*uid://blc8eno45tarv"
+ShipManager="*uid://6wrf8t7jut4j"
 
 [display]
 
@@ -32,6 +33,7 @@ window/stretch/mode="canvas_items"
 
 Enemy=""
 Ship=""
+Planet=""
 
 [input]
 
@@ -71,6 +73,9 @@ down={
 2d_physics/layer_1="ShipHitbox"
 2d_physics/layer_2="Bullet"
 2d_physics/layer_3="AggroBox"
+2d_physics/layer_4="PlanetArea"
+2d_physics/layer_5="PlanetHitbox"
+2d_physics/layer_6="BulletArea"
 
 [physics]
 

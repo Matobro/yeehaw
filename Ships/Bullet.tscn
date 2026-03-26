@@ -7,6 +7,9 @@
 radius = 4.0
 
 [node name="Bullet" type="Area2D" unique_id=1235916506]
+modulate = Color(1.353256, 1.353256, 1.353256, 1)
+z_index = 11
+collision_layer = 2
 script = ExtResource("1_dxiof")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1893412359]

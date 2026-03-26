@@ -10,7 +10,7 @@ item_scene = ExtResource("1_x04dl")
 item_icon = ExtResource("1_l5dhp")
 item_base_price = 1.0
 item_name = "Satellite"
-price_scaling = 11.5
+price_scaling = 2.0
 item_description = "Generates [color=green]{total_energy}[/color] energy every [color=green]{harvest_speed}[/color] second
 Satellite network production: [color=yellow]{satellite_production}[/color]/s"
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

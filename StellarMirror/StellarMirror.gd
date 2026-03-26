@@ -6,7 +6,7 @@ var base_center: Vector2 = Vector2.ZERO
 var base_radius: float = 300.0
 var base_orbit_speed: float = 0.1
 
-var energy_multiplier: float = 1.1
+var energy_multiplier: float = 0.1
 
 
 func item_purchased(_player: Player):

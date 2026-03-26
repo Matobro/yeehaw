@@ -9,8 +9,10 @@ font_size = 8
 font_color = Color(0.6509804, 0.69803923, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ojbwg"]
-font_size = 8
-font_color = Color(0.35686275, 0.52156866, 0.39607844, 1)
+font_size = 6
+font_color = Color(0, 0.6666667, 0, 1)
+outline_size = 2
+outline_color = Color(1.1852197e-06, 0.31662995, 4.813075e-08, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_h3jsb"]
 font_size = 8
@@ -83,11 +85,11 @@ vertical_alignment = 1
 
 [node name="NameLabel" type="Label" parent="ItemArea" unique_id=1824406938]
 z_index = 2
-custom_minimum_size = Vector2(75, 10)
+custom_minimum_size = Vector2(62, 10)
 layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
-offset_right = 77.0
+offset_right = 64.0
 offset_bottom = 22.0
 text = "Satellite"
 label_settings = SubResource("LabelSettings_ojbwg")

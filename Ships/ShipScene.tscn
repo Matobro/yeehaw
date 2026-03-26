@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dvhye8l7ubwh3"]
+
+[ext_resource type="Script" uid="uid://cgspee3li05r0" path="res://ShipAI.gd" id="1_p66xr"]
+[ext_resource type="Texture2D" uid="uid://bfaore74n0cmi" path="res://Ships/Sprites/TestShip.png" id="3_v7y1a"]
+[ext_resource type="Script" uid="uid://bjgaqt85w0t6s" path="res://HitBox.gd" id="4_ky0td"]
+[ext_resource type="Script" uid="uid://30tqgtstp775" path="res://AggroBox.gd" id="5_d8f3u"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lwdsg"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n1nlt"]
+radius = 1.0
+
+[node name="TestShip" type="CharacterBody2D" unique_id=1011254219 node_paths=PackedStringArray("hitbox", "aggrobox", "ship_sprite")]
+z_index = 10
+z_as_relative = false
+scale = Vector2(0.1, 0.1)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_p66xr")
+hitbox = NodePath("Hitbox")
+aggrobox = NodePath("AggroRadius")
+ship_sprite = NodePath("Sprite")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1342811750]
+modulate = Color(0, 0.59000057, 0, 1)
+scale = Vector2(0.99999994, 0.99999994)
+texture = ExtResource("3_v7y1a")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2033580384 groups=["Ship"]]
+collision_mask = 6
+script = ExtResource("4_ky0td")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1808751731]
+shape = SubResource("CircleShape2D_lwdsg")
+
+[node name="AggroRadius" type="Area2D" parent="." unique_id=640589343]
+collision_layer = 4
+script = ExtResource("5_d8f3u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AggroRadius" unique_id=211627053]
+shape = SubResource("CircleShape2D_n1nlt")
+debug_color = Color(1, 0.60038817, 0.70000815, 0.007)

@@ -3,14 +3,18 @@ extends Node2D
 
 signal shield_changed(current, max)
 @export var forcefield_node: Node2D
+@export var hitbox: Area2D
 
 var shield_current: float = 10.0
 
 var regeneration_timer: float = 0.0
 var regeneration_tick_timer: float = 0.0
 
+var lost: bool = false
 
 func _ready():
+	shield_current = Economy.get_max_shield()
+	hitbox.took_damage.connect(damage_shield)
 	on_shield_value_changed()
 
 
@@ -47,6 +51,10 @@ func damage_shield(amount):
 
 
 func on_shield_value_changed():
+	if shield_current <= 0 and !lost:
+		lost = true
+		PlayerManager.end_screen()
+		return
 	var shield_max = Economy.get_max_shield()
 	emit_signal("shield_changed", shield_current, shield_max)
 	var shield_percentage = shield_current / shield_max
