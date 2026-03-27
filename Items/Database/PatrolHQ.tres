@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dl02020bwdckp"]
+
+[ext_resource type="Texture2D" uid="uid://8hg6p5tt6bvp" path="res://Buildings/OrbitalBuilding..png" id="1_hnhto"]
+[ext_resource type="PackedScene" uid="uid://bhve3c5753kbt" path="res://ShipFactory.tscn" id="2_t5y0a"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Items/ItemData.gd" id="3_h4alj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mplun"]
+atlas = ExtResource("1_hnhto")
+region = Rect2(64, 0, 64, 0)
+
+[resource]
+script = ExtResource("3_h4alj")
+item_category = 1
+item_scene = ExtResource("2_t5y0a")
+item_icon = SubResource("AtlasTexture_mplun")
+item_base_price = 100.0
+item_name = "Patrol HQ"
+price_scaling = 5.0
+item_description = "Builds patrol ships that stay near the planet to defend
+
+Max ships: [color=yellow]{max_ships}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

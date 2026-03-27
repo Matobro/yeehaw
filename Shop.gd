@@ -1,5 +1,19 @@
 extends Node2D
 
+var item_files = [
+	"res://Items/Database/PatrolHQ.tres",
+	"res://Items/Database/PointDefenceTurret.tres",
+	"res://Items/Database/TargetingSoftware.tres",
+	"res://Items/Database/ShieldBooster.tres",
+	"res://Items/Database/Generator.tres",
+	"res://Items/Database/Relay Station.tres",
+	"res://Items/Database/Satellite.tres",
+	"res://Items/Database/FirmwareUpdate.tres",
+	"res://Items/Database/SolarPlating.tres",
+	"res://Items/Database/StellarMirror.tres",
+	"res://Items/Database/Autocannon.tres"
+]
+
 var shop_button_scene: PackedScene = preload("res://ShopButton.tscn")
 
 var items: Array[ItemData]
@@ -17,28 +31,11 @@ func _ready():
 
 
 func initialize_items():
-	var dir = DirAccess.open("res://Items/Database/")
-
-	if dir == null:
-		push_error("Failed to open directory")
-		return
-
-	dir.list_dir_begin()
-	var file_name = dir.get_next()
-
-	while file_name != "":
-		if not dir.current_is_dir() and not file_name.begins_with("."):
-			if file_name.ends_with(".tres"):
-				var path = "res://Items/Database/" + file_name
-				var item = load(path) as ItemData
-
-				if item != null:
-					items.append(item)
-					shop_add_item(item)
-
-		file_name = dir.get_next()
-
-	dir.list_dir_end()
+	for path in item_files:
+		var item = load(path) as ItemData
+		if item != null:
+			items.append(item)
+			shop_add_item(item)
 
 
 func shop_add_item(new_item: ItemData):

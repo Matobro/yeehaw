@@ -69,3 +69,14 @@ func on_ally_area_exited(exited_area: Area2D):
 	if exited_area.ship_team == 1:
 		if exited_area.origin in allies_in_area:
 			allies_in_area.erase(exited_area.origin)
+
+
+func get_random_enemy_in_area() -> Ship:
+	var valid_enemies = enemies_in_area.filter(func(ship):
+		return is_instance_valid(ship) and not ship.dead
+	)
+	
+	if valid_enemies.is_empty():
+		return null
+	
+	return valid_enemies.pick_random()

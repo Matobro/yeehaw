@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://dl0uk3lq14spa"]
 
-[ext_resource type="Texture2D" uid="uid://d0kmrj2b6oooy" path="res://Items/Sprites/AutocannonIcon.png" id="1_3o50n"]
+[ext_resource type="Texture2D" uid="uid://bpkp6l56ta2n7" path="res://Items/Sprites/PointDefence.png" id="1_3o50n"]
 [ext_resource type="Script" uid="uid://dpobw0dvn5i4p" path="res://Satellite/PointDefenceTurret.gd" id="2_3o50n"]
 
 [node name="PointDefenceTurret" type="Sprite2D" unique_id=753828469]
 z_index = 10
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_3o50n")
-offset = Vector2(0, -24)
 script = ExtResource("2_3o50n")

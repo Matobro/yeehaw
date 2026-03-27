@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://coau4cspiqmvg"]
 
 [ext_resource type="PackedScene" uid="uid://dl0uk3lq14spa" path="res://Satellite/PointDefenceTurret.tscn" id="1_8r35n"]
-[ext_resource type="Texture2D" uid="uid://d0kmrj2b6oooy" path="res://Items/Sprites/AutocannonIcon.png" id="1_08yo6"]
+[ext_resource type="Texture2D" uid="uid://bpkp6l56ta2n7" path="res://Items/Sprites/PointDefence.png" id="1_08yo6"]
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Items/ItemData.gd" id="1_vtm2t"]
 
 [resource]

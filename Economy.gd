@@ -19,6 +19,12 @@ var max_ship_amount: int = 10 # per building
 var point_defence_speed: float = 2.0 # in seconds
 var point_defence_speed_min: float = 0.1
 
+var defence_turret_speed: float = 1.0
+var defence_turret_speed_min: float = 0.1
+
+var defence_turret_damage: float = 1.0
+var defence_turret_bullet_speed: float = 200.0
+
 func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 	var success: bool = true
 
@@ -111,3 +117,19 @@ func get_point_defence_speed() -> float:
 
 func get_point_defence_speed_min() -> float:
 	return point_defence_speed_min
+
+
+func get_defence_turret_speed() -> float:
+	return defence_turret_speed
+
+
+func get_defence_turret_speed_min() -> float:
+	return defence_turret_speed_min
+
+
+func get_defence_turret_damage() -> float:
+	return defence_turret_damage
+
+
+func get_defence_turret_bullet_speed() -> float:
+	return defence_turret_bullet_speed
