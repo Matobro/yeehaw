@@ -25,6 +25,7 @@ var defence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control
 @onready
 var offence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/OffenceShop/ShopItems"
 
+var all_shop_buttons: Array[ShopButton]
 
 func _ready():
 	initialize_items()
@@ -50,12 +51,24 @@ func shop_add_item(new_item: ItemData):
 			offence_shop_list.add_child(new_shop_button)
 	new_shop_button.shop_button_pressed.connect(shop_item_purchased)
 
+	all_shop_buttons.append(new_shop_button)
 
 func shop_item_purchased(shop_button: ShopButton):
 	var player: Player = PlayerManager.player
 	var player_energy: float = player.energy
 	var item_type: int = shop_button.item_type
-	var item_price: float = shop_button.item_price
+	var item_sub_category: int = shop_button.item_data.item_sub_category
+	var price_multiplier: float
+	match item_sub_category:
+		# none/misc
+		0:
+			price_multiplier = 1.0
+		1:
+			price_multiplier = Economy.orbital_price_multiplier
+		_:
+			price_multiplier = 1.0
+
+	var item_price: float = shop_button.item_price * price_multiplier
 	var success: bool
 
 	## Money stuff
@@ -86,5 +99,26 @@ func shop_item_purchased(shop_button: ShopButton):
 		shop_button.item_purchased()
 
 
+func force_update_shop():
+	for i in range(all_shop_buttons.size()):
+		var shop_button = all_shop_buttons[i]
+		shop_button.update_item_data()
+
+
 func has_funds(energy, price) -> bool:
 	return energy >= price
+
+
+func get_items_by_subcategory(subcat: int) -> Array[ItemData]:
+	var result: Array = []
+	for item in items:
+		if item.item_sub_category == subcat:
+			result.append(item)
+	return result
+
+func get_items_names_by_subcategory(subcat: int) -> String:
+	var names: Array[String] = []
+	for item in items:
+		if item.item_sub_category == subcat:
+			names.append(item.item_name)
+	return ", ".join(names)

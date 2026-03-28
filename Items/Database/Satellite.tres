@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_l5dhp")
+item_sub_category = 1
 item_scene = ExtResource("1_x04dl")
 item_icon = ExtResource("1_l5dhp")
 item_base_price = 1.0

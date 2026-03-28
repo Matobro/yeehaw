@@ -5,6 +5,7 @@ var energy_multiplier: float = 1.0  # percentage multiplier
 var energy_flat_bonus: float = 0.0  # flat multiplier
 var energy_harvest_speed: float = 5.0 # in seconds
 var energy_harvest_bonus: float = 0.0
+var energy_total_multiplier_bonus: float = 1.0
 
 var shield_max: float = 100.0
 var shield_regeneration_delay: float = 5.0 # in seconds
@@ -24,6 +25,9 @@ var defence_turret_speed_min: float = 0.1
 
 var defence_turret_damage: float = 1.0
 var defence_turret_bullet_speed: float = 200.0
+
+var orbital_price_multiplier: float = 1.0
+var orbital_price_multiplier_min: float = 0.05
 
 func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 	var success: bool = true
@@ -51,6 +55,16 @@ func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 			if point_defence_speed > point_defence_speed_min:
 				point_defence_speed = clampf(point_defence_speed - amount, point_defence_speed_min, point_defence_speed)
 			else: success = false
+		PowerUp.Type.ENERGY_TOTAL_MULTIPLIER_BONUS:
+			energy_total_multiplier_bonus += amount
+		PowerUp.Type.MAX_SHIPS:
+			max_ship_amount += 1
+		PowerUp.Type.ORBITAL_PRICE_DECREASE:
+			if orbital_price_multiplier > orbital_price_multiplier_min:
+				orbital_price_multiplier = clampf(orbital_price_multiplier - amount, orbital_price_multiplier_min, orbital_price_multiplier)
+			else:
+				success = false
+
 		_:
 			success = false
 
@@ -70,7 +84,7 @@ func get_energy_flat_bonus() -> float:
 
 
 func get_total_energy_bonus() -> float:
-	return (base_energy_harvest + energy_flat_bonus) * energy_multiplier
+	return ((base_energy_harvest + energy_flat_bonus) * energy_multiplier) * energy_total_multiplier_bonus
 
 
 func get_total_energy_harvest_speed() -> float:
@@ -82,6 +96,9 @@ func get_energy_per_second() -> float:
 	var harvests_per_second = 1.0 / get_total_energy_harvest_speed()
 	return energy_per_harvest * harvests_per_second
 
+
+func get_energy_total_multiplier_bonus() -> float:
+	return energy_total_multiplier_bonus
 
 func get_shield_regeneration_delay() -> float:
 	return shield_regeneration_delay
@@ -133,3 +150,11 @@ func get_defence_turret_damage() -> float:
 
 func get_defence_turret_bullet_speed() -> float:
 	return defence_turret_bullet_speed
+
+
+func get_orbital_price_multiplier() -> float:
+	return orbital_price_multiplier
+
+
+func get_orbital_price_multiplier_min() -> float:
+	return orbital_price_multiplier_min

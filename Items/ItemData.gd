@@ -1,7 +1,8 @@
 class_name ItemData
 extends Resource
 
-@export_enum("Economy", "Defence", "Offence") var item_category: int
+@export_enum("Economy", "Defence", "Offence", "Perk") var item_category: int
+@export_enum("Misc", "Orbital") var item_sub_category: int
 @export_enum("Deployable", "PowerUp") var item_type: int
 
 @export_category("PowerUp")

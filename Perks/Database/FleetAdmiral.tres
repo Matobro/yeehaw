@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b2teuio2f1hut"]
+
+[ext_resource type="Texture2D" uid="uid://idouejswe42a" path="res://Perks/Sprites/SniperMode.png" id="1_napma"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Items/ItemData.gd" id="1_vkdkg"]
+
+[resource]
+script = ExtResource("1_vkdkg")
+item_category = 3
+item_type = 1
+power_up_type = 9
+power_up_amount = 1.0
+item_icon = ExtResource("1_napma")
+item_base_price = 1.0
+item_name = "Fleet Admiral"
+price_scaling = 1.0
+item_description = "Increases max ships by [color=green]{flat}[/color]
+
+Current: [color=yellow]{max_ships}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

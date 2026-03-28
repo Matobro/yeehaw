@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8oso5tanpkas"
-path="res://.godot/imported/index.png-0c78d14d192abe5f22f8c25928ca1ab8.ctex"
+uid="uid://b5nwcqcsip6mu"
+path="res://.godot/imported/Skellichaun.png-4909b17758577478ec5604ce732acb9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/index.png"
-dest_files=["res://.godot/imported/index.png-0c78d14d192abe5f22f8c25928ca1ab8.ctex"]
+source_file="res://Perks/Sprites/Skellichaun.png"
+dest_files=["res://.godot/imported/Skellichaun.png-4909b17758577478ec5604ce732acb9d.ctex"]
 
 [params]
 

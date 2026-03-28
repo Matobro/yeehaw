@@ -71,9 +71,13 @@ func on_damage_taken(amount):
 	if stats.current_health <= 0:
 		dead = true
 		if ship_team != 1:
-			PlayerManager.get_player().add_energy(stats.energy_dropped)
+			var player = PlayerManager.get_player()
+			player.add_energy(stats.energy_dropped)
+			player.add_experience(stats.experience_dropped)
+			
 		emit_signal("ship_destroyed", self)
 		call_deferred("queue_free")
+
 
 func decide_action(delta):
 	if current_state == null:

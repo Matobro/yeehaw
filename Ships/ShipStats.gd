@@ -31,5 +31,6 @@ extends Resource
 
 @export_category("Loot")
 @export var energy_dropped: float
+@export var experience_dropped: int
 
 var current_health: float

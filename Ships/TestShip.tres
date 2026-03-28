@@ -24,4 +24,5 @@ acceleration = 5.0
 patrol_radius = 200.0
 max_health = 10.0
 energy_dropped = 25.0
+experience_dropped = 10
 metadata/_custom_type_script = "uid://gb7wrmlg1axt"

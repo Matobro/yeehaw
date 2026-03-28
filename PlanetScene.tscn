@@ -23,10 +23,11 @@
 [ext_resource type="Script" uid="uid://u4gqwxe3bayw" path="res://UIHideButton.gd" id="16_xqkmr"]
 [ext_resource type="Script" uid="uid://blqdce5ksilnc" path="res://TabButton.gd" id="17_xqkmr"]
 [ext_resource type="Texture2D" uid="uid://ow280tbxdueb" path="res://ForceField/ForceField.png" id="18_0juq3"]
-[ext_resource type="Texture2D" uid="uid://ci140wc0hyi48" path="res://UI/HpBar.png" id="18_c1v1t"]
 [ext_resource type="Script" uid="uid://cw7y7jbq1nu4t" path="res://ShieldUI.gd" id="19_7gk3i"]
 [ext_resource type="Script" uid="uid://d1g0fjgubf7sx" path="res://Forcefield.gd" id="20_jvoc5"]
 [ext_resource type="Script" uid="uid://v182ga467qft" path="res://GlowTween.gd" id="20_mqcnp"]
+[ext_resource type="Script" uid="uid://cb04sgihbhqe0" path="res://LevelUI.gd" id="24_n1nlt"]
+[ext_resource type="Script" uid="uid://bxr1fcibxtyve" path="res://LevelBar.gd" id="25_wd3gh"]
 
 [sub_resource type="Environment" id="Environment_hag48"]
 background_mode = 3
@@ -63,11 +64,14 @@ font_color = Color(0, 1, 0, 1)
 font_size = 6
 font_color = Color(0, 0.34901962, 0, 1)
 
-[sub_resource type="Gradient" id="Gradient_c1v1t"]
-colors = PackedColorArray(1, 1, 0, 1, 18.892157, 18.892157, 0, 1)
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n1nlt"]
+load_path = "res://.godot/imported/HpBar.png-0afad5fdf858d0390a345815d8500012.ctex"
+
+[sub_resource type="Gradient" id="Gradient_wd3gh"]
+colors = PackedColorArray(0.5137255, 0.41568628, 1, 1, 0.4, 0.9254902, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_jvoc5"]
-gradient = SubResource("Gradient_c1v1t")
+gradient = SubResource("Gradient_wd3gh")
 width = 155
 height = 40
 
@@ -76,6 +80,23 @@ font_size = 24
 font_color = Color(0, 0.79595864, 0, 1)
 outline_size = 14
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_c1v1t"]
+offsets = PackedFloat32Array(0.012987013, 1)
+colors = PackedColorArray(0.51223195, 0.5122321, 3.85046e-07, 1, 0.5137255, 0.5137255, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_n1nlt"]
+gradient = SubResource("Gradient_c1v1t")
+width = 48
+height = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_aitcm"]
+font_size = 6
+font_color = Color(1, 1, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_n1nlt"]
+font_size = 6
+font_color = Color(0, 0.8666667, 0, 1)
 
 [node name="PlanetScene" type="Node2D" unique_id=1034310814]
 y_sort_enabled = true
@@ -592,7 +613,7 @@ max_value = 10.0
 step = 0.1
 value = 10.0
 rounded = true
-texture_over = ExtResource("18_c1v1t")
+texture_over = SubResource("CompressedTexture2D_n1nlt")
 texture_progress = SubResource("GradientTexture2D_jvoc5")
 texture_progress_offset = Vector2(18, 0)
 script = ExtResource("19_7gk3i")
@@ -665,9 +686,209 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 20
 columns = 4
 
-[node name="Player" parent="." unique_id=761089432 node_paths=PackedStringArray("money_ui") instance=ExtResource("16_q2wn2")]
+[node name="COMMANDERTAB" type="Control" parent="UI" unique_id=1116202448]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -96.0
+offset_right = 224.0
+offset_bottom = 180.0
+grow_horizontal = 0
+scale = Vector2(0.3, 0.3)
+
+[node name="Content" type="VBoxContainer" parent="UI/COMMANDERTAB" unique_id=1297925392]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 25.0
+theme_override_constants/separation = 0
+
+[node name="ShopHeader" type="Panel" parent="UI/COMMANDERTAB/Content" unique_id=882928314]
+clip_contents = true
+custom_minimum_size = Vector2(320, 25)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="Commander" type="Label" parent="UI/COMMANDERTAB/Content/ShopHeader" unique_id=1913242433 node_paths=PackedStringArray("level_label", "perk_label")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -46.667
+offset_top = -12.5
+offset_right = 49.333008
+offset_bottom = 10.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Commander"
+label_settings = SubResource("LabelSettings_jvoc5")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("24_n1nlt")
+level_label = NodePath("LevelArea/LevelLabel")
+perk_label = NodePath("PerkPointsArea/PerkLabel")
+
+[node name="LevelText" type="Label" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander" unique_id=541957778]
+layout_mode = 0
+offset_left = 130.0006
+offset_top = 0.5
+offset_right = 196.0006
+offset_bottom = 12.5
+text = "Level:"
+label_settings = SubResource("LabelSettings_xqkmr")
+vertical_alignment = 1
+
+[node name="LevelArea" type="Panel" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander" unique_id=1432160645]
+layout_mode = 0
+offset_left = 155.83328
+offset_right = 205.83328
+offset_bottom = 12.5
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="LevelBar" type="Control" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander/LevelArea" unique_id=1433550521]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander/LevelArea/LevelBar" unique_id=99284442]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -5.5
+offset_right = 24.0
+offset_bottom = 5.5
+grow_horizontal = 2
+grow_vertical = 2
+max_value = 10.0
+step = 0.1
+value = 10.0
+rounded = true
+texture_progress = SubResource("GradientTexture2D_n1nlt")
+script = ExtResource("25_wd3gh")
+
+[node name="LevelLabel" type="Label" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander/LevelArea" unique_id=357245180]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "500"
+label_settings = SubResource("LabelSettings_aitcm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PerkPointsText" type="Label" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander" unique_id=1544121823]
+layout_mode = 0
+offset_left = 130.00027
+offset_top = 13.333
+offset_right = 196.00027
+offset_bottom = 25.333
+text = "Perks:"
+label_settings = SubResource("LabelSettings_xqkmr")
+vertical_alignment = 1
+
+[node name="PerkPointsArea" type="Panel" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander" unique_id=160562665]
+layout_mode = 0
+offset_left = 155.833
+offset_top = 12.0
+offset_right = 205.833
+offset_bottom = 24.5
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="PerkLabel" type="Label" parent="UI/COMMANDERTAB/Content/ShopHeader/Commander/PerkPointsArea" unique_id=150110161]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "500"
+label_settings = SubResource("LabelSettings_n1nlt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="UI/COMMANDERTAB/Content/ShopHeader" unique_id=15433461 node_paths=PackedStringArray("ui")]
+modulate = Color(1, 0, 0, 1)
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 22.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = ExtResource("16_pbg03")
+theme_override_styles/pressed = ExtResource("16_pbg03")
+theme_override_styles/hover = ExtResource("16_pbg03")
+theme_override_styles/disabled = ExtResource("16_pbg03")
+theme_override_styles/focus = ExtResource("16_pbg03")
+text = "X"
+script = ExtResource("16_xqkmr")
+ui = NodePath("../../Control")
+
+[node name="Control" type="Control" parent="UI/COMMANDERTAB/Content" unique_id=1036702961]
+layout_mode = 2
+
+[node name="Tabs" type="Panel" parent="UI/COMMANDERTAB/Content/Control" unique_id=1315585911]
+custom_minimum_size = Vector2(320, 25)
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 25.0
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("16_pbg03")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/COMMANDERTAB/Content/Control/Tabs" unique_id=703113429]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 25.0
+theme_override_constants/separation = 0
+
+[node name="EconomyButton" type="Button" parent="UI/COMMANDERTAB/Content/Control/Tabs/HBoxContainer" unique_id=507955191 node_paths=PackedStringArray("all_tabs", "tab_opened")]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.8745098, 0, 1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("16_pbg03")
+theme_override_styles/pressed = ExtResource("16_pbg03")
+theme_override_styles/hover = ExtResource("16_pbg03")
+theme_override_styles/disabled = ExtResource("16_pbg03")
+theme_override_styles/focus = ExtResource("16_pbg03")
+text = "Perks"
+clip_text = true
+script = ExtResource("17_xqkmr")
+all_tabs = [NodePath("../../../PerkShop")]
+tab_opened = NodePath("../../../PerkShop")
+
+[node name="PerkShop" type="Control" parent="UI/COMMANDERTAB/Content/Control" unique_id=1454238021]
+visible = false
+anchors_preset = 0
+offset_top = 25.0
+offset_right = 320.0
+offset_bottom = 25.0
+
+[node name="ShopItems" type="GridContainer" parent="UI/COMMANDERTAB/Content/Control/PerkShop" unique_id=212269218]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 20.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 20
+columns = 4
+
+[node name="Player" parent="." unique_id=761089432 node_paths=PackedStringArray("money_ui", "level_ui", "level_bar") instance=ExtResource("16_q2wn2")]
 money_ui = NodePath("../UI/UITAB/Content/ShopHeader/MATOSYS/BalanceArea/BalanceLabel")
-energy = 5110.0
+level_ui = NodePath("../UI/COMMANDERTAB/Content/ShopHeader/Commander")
+level_bar = NodePath("../UI/COMMANDERTAB/Content/ShopHeader/Commander/LevelArea/LevelBar/TextureProgressBar")
+energy = 5000.0
 
 [node name="Forcefield" type="Node2D" parent="." unique_id=60064998 node_paths=PackedStringArray("forcefield_node", "hitbox")]
 script = ExtResource("20_jvoc5")
