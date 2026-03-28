@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cwfvb0yt0j2vt"]
+
+[ext_resource type="Texture2D" uid="uid://bc6tv4bxpmk8u" path="res://Shop/Items/Sprites/MoreGears.png" id="1_33nrw"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_r2w3r"]
+
+[resource]
+script = ExtResource("1_r2w3r")
+item_category = 1
+item_type = 1
+power_up_type = 4
+power_up_amount = 1.0
+item_icon = ExtResource("1_33nrw")
+item_base_price = 250.0
+item_name = "Generator"
+price_scaling = 1.05
+item_description = "Increases shield regeneration by [color=green]{flat}[/color]
+Current regeneration: [color=yellow]{regeneration_amount}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

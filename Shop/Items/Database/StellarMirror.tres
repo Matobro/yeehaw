@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dqvuteefgf863"]
+
+[ext_resource type="Texture2D" uid="uid://dj0oigg5plukx" path="res://Shop/Items/Sprites/StellarMirror.png" id="1_gyu6s"]
+[ext_resource type="PackedScene" uid="uid://bi5ihbeq34lm0" path="res://Shop/Items/StellarMirror.tscn" id="1_r8qkc"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="2_gyu6s"]
+
+[resource]
+script = ExtResource("2_gyu6s")
+power_up_amount = 0.1
+item_scene = ExtResource("1_r8qkc")
+item_icon = ExtResource("1_gyu6s")
+item_base_price = 20.0
+item_name = "Stellar Mirror"
+price_scaling = 1.5
+item_description = "Increases satellite energy production by [color=green]{value}[/color]
+Current: [color=yellow]{energy_multiplier}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

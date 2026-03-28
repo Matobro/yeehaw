@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cw1dnu56fafig"]
+
+[ext_resource type="Texture2D" uid="uid://bh67foq13cgr7" path="res://Shop/Items/Sprites/TargetingSoftware.png" id="1_q0j6f"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_r8qjy"]
+
+[resource]
+script = ExtResource("1_r8qjy")
+item_category = 1
+item_type = 1
+power_up_type = 7
+power_up_amount = 0.1
+item_icon = ExtResource("1_q0j6f")
+item_base_price = 50.0
+item_name = "Targeting Software"
+price_scaling = 1.5
+item_description = "Increases interception speed by [color=green]{flat}[/color]
+Current speed: {pd_speed}s"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

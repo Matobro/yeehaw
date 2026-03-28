@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://op0l12te1ii8"]
+
+[ext_resource type="Script" uid="uid://cdis671bbb0td" path="res://Shop/Items/ShopButton.gd" id="1_5ktu0"]
+[ext_resource type="StyleBox" uid="uid://cj8frm5kh0j20" path="res://UI/Styles/TerminalDefault.tres" id="1_fbtoa"]
+[ext_resource type="Texture2D" uid="uid://dr7ui8j0e575d" path="res://Shop/Items/Sprites/Satellite.png" id="3_ojbwg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_pbg03"]
+font_size = 8
+font_color = Color(0.6509804, 0.69803923, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ojbwg"]
+font_size = 6
+font_color = Color(0, 0.6666667, 0, 1)
+outline_size = 2
+outline_color = Color(1.1852197e-06, 0.31662995, 4.813075e-08, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h3jsb"]
+font_size = 8
+font_color = Color(0, 0.44796598, 0, 1)
+outline_size = 10
+outline_color = Color(0.099985994, 0.099985994, 0.099985994, 1)
+
+[node name="ShopButton" type="Control" unique_id=1026823956 node_paths=PackedStringArray("button", "item_name_label", "item_price_label", "item_icon", "tool_tip", "tool_tip_label", "amount_owned_label")]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_5ktu0")
+button = NodePath("ItemArea/PurchaseButton")
+item_name_label = NodePath("ItemArea/NameLabel")
+item_price_label = NodePath("ItemArea/PriceLabel")
+item_icon = NodePath("ItemArea/TextureRect")
+tool_tip = NodePath("Tooltip")
+tool_tip_label = NodePath("Tooltip/MarginContainer/Text")
+amount_owned_label = NodePath("ItemArea/Amount")
+
+[node name="ItemArea" type="Panel" parent="." unique_id=1907615190]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("1_fbtoa")
+
+[node name="PurchaseButton" type="Button" parent="ItemArea" unique_id=312781293]
+custom_minimum_size = Vector2(75, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.5372549, 0.7647059, 0.89411765, 1)
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("1_fbtoa")
+theme_override_styles/pressed = ExtResource("1_fbtoa")
+theme_override_styles/hover = ExtResource("1_fbtoa")
+theme_override_styles/disabled = ExtResource("1_fbtoa")
+theme_override_styles/focus = ExtResource("1_fbtoa")
+clip_text = true
+
+[node name="TextureRect" type="TextureRect" parent="ItemArea" unique_id=1038228678]
+z_index = 1
+layout_mode = 0
+offset_left = 41.0
+offset_top = 4.0
+offset_right = 71.0
+offset_bottom = 34.0
+mouse_filter = 2
+texture = ExtResource("3_ojbwg")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="PriceLabel" type="Label" parent="ItemArea" unique_id=1337123256]
+z_index = 2
+custom_minimum_size = Vector2(75, 10)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 18.0
+offset_right = 77.0
+offset_bottom = 38.0
+text = "1000"
+label_settings = SubResource("LabelSettings_pbg03")
+vertical_alignment = 1
+
+[node name="NameLabel" type="Label" parent="ItemArea" unique_id=1824406938]
+z_index = 2
+custom_minimum_size = Vector2(62, 10)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 64.0
+offset_bottom = 22.0
+text = "Satellite"
+label_settings = SubResource("LabelSettings_ojbwg")
+vertical_alignment = 1
+
+[node name="Amount" type="Label" parent="ItemArea" unique_id=119403469]
+z_index = 2
+layout_mode = 0
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 24.0
+text = "0"
+label_settings = SubResource("LabelSettings_h3jsb")
+horizontal_alignment = 2
+
+[node name="Tooltip" type="PanelContainer" parent="." unique_id=1487826884]
+visible = false
+z_index = 3
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -75.0
+offset_top = 40.0
+offset_right = 15.0
+offset_bottom = 100.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("1_fbtoa")
+
+[node name="MarginContainer" type="MarginContainer" parent="Tooltip" unique_id=160429597]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Text" type="RichTextLabel" parent="Tooltip/MarginContainer" unique_id=2120590095]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 8
+bbcode_enabled = true
+text = "1010101010"
+fit_content = true
+scroll_active = false

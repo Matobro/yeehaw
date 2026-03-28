@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cvo7wi87355kh"]
+
+[ext_resource type="Texture2D" uid="uid://d0kmrj2b6oooy" path="res://Shop/Items/Sprites/AutocannonIcon.png" id="1_x4xn3"]
+[ext_resource type="Script" uid="uid://dh4lw8ka8mgh1" path="res://Shop/Items/DefenceTurret.gd" id="2_x4xn3"]
+[ext_resource type="PackedScene" uid="uid://crgby3stfd628" path="res://Ships/Bullet.tscn" id="3_0jfqx"]
+
+[node name="DefenceTurret" type="Sprite2D" unique_id=753828469]
+z_index = 10
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_x4xn3")
+offset = Vector2(0, -25)
+script = ExtResource("2_x4xn3")
+bullet_scene = ExtResource("3_0jfqx")

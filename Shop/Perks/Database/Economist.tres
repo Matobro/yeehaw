@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bix2l1vyudvww"]
+
+[ext_resource type="Texture2D" uid="uid://b5nwcqcsip6mu" path="res://Shop/Perks/Sprites/Skellichaun.png" id="1_c2a54"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_x8y5t"]
+
+[resource]
+script = ExtResource("1_x8y5t")
+item_category = 3
+item_type = 1
+power_up_type = 8
+power_up_amount = 0.1
+item_icon = ExtResource("1_c2a54")
+item_base_price = 1.0
+item_name = "Economist"
+price_scaling = 1.0
+item_description = "Adds [color=green]{value}[/color] bonus to your satellite energy production.
+
+This bonus is applied after all other bonuses.
+
+Current: [color=yellow]{economist_bonus}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

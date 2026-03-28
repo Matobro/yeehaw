@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://cvqar7mh3dumt"]
+
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_0tqn2"]
+[ext_resource type="Texture2D" uid="uid://d0kmrj2b6oooy" path="res://Shop/Items/Sprites/AutocannonIcon.png" id="1_o0x2y"]
+[ext_resource type="PackedScene" uid="uid://cvo7wi87355kh" path="res://Shop/Items/DefenceTurret.tscn" id="2_37w7o"]
+
+[resource]
+script = ExtResource("1_0tqn2")
+item_category = 2
+item_sub_category = 1
+item_scene = ExtResource("2_37w7o")
+item_icon = ExtResource("1_o0x2y")
+item_base_price = 250.0
+item_name = "Autocannon"
+item_description = "Shoots at enemy ships"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

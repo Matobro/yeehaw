@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dnlmn2dllx48o"]
+
+[ext_resource type="Texture2D" uid="uid://dr7ui8j0e575d" path="res://Shop/Items/Sprites/Satellite.png" id="1_ngear"]
+[ext_resource type="Script" uid="uid://ddloh4e7g7qna" path="res://Shop/Items/Satellite.gd" id="2_uja11"]
+
+[node name="Satellite" type="Sprite2D" unique_id=753828469]
+modulate = Color(0.4827013, 0.4827013, 0.4827013, 1)
+z_index = 10
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_ngear")
+script = ExtResource("2_uja11")

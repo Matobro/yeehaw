@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bjto4423dtpug"]
+
+[ext_resource type="Texture2D" uid="uid://b44ut52im4y88" path="res://Shop/Items/Sprites/buollding.png" id="1_6vv47"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_w5t6q"]
+
+[resource]
+script = ExtResource("1_w5t6q")
+item_category = 1
+item_type = 1
+power_up_type = 5
+power_up_amount = 0.1
+item_icon = ExtResource("1_6vv47")
+item_base_price = 250.0
+item_name = "Relay Station"
+price_scaling = 1.05
+item_description = "Decreases shield regeneration delay by [color=green]{flat}[/color]s
+Current delay: [color=yellow]{shield_delay}[/color]s"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

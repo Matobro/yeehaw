@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bi5ihbeq34lm0"]
+
+[ext_resource type="Texture2D" uid="uid://dj0oigg5plukx" path="res://Shop/Items/Sprites/StellarMirror.png" id="1_htorr"]
+[ext_resource type="Script" uid="uid://ck5fwm8b7m203" path="res://Shop/Items/StellarMirror.gd" id="2_8gyr2"]
+
+[node name="StellarMirror" type="Sprite2D" unique_id=753828469]
+modulate = Color(1.1985549, 1.1985549, 1.1985549, 1)
+z_index = 10
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_htorr")
+script = ExtResource("2_8gyr2")
