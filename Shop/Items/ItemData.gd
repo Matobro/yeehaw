@@ -19,3 +19,10 @@ extends Resource
 @export var price_scaling: float = 1.1
 ## {value} for percentage {flat} for flat value {total_energy} total energy with bonuses
 @export_multiline var item_description: String
+
+
+@export_category("Unlocks")
+@export var has_unlock: bool = false
+@export var amount_required: int = 0
+@export var unlock_type: Unlock.Type
+@export_multiline var unlock_text: String

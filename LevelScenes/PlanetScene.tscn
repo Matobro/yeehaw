@@ -126,7 +126,7 @@ repeat_times = 10
 [node name="Stars" type="Sprite2D" parent="Map/StarsParallax" unique_id=1445695019]
 texture = ExtResource("2_udei6")
 
-[node name="Planet" type="Sprite2D" parent="Map" unique_id=358970249 node_paths=PackedStringArray("alarm_area", "ally_area", "bullet_area")]
+[node name="Planet" type="Sprite2D" parent="Map" unique_id=358970249 node_paths=PackedStringArray("alarm_area", "ally_area", "bullet_area", "forcefield")]
 modulate = Color(1.753959, 1.753959, 1.753959, 1)
 clip_children = 2
 scale = Vector2(0.5, 0.5)
@@ -135,6 +135,7 @@ script = ExtResource("4_74lwb")
 alarm_area = NodePath("AlarmArea")
 ally_area = NodePath("AllyArea")
 bullet_area = NodePath("BulletArea")
+forcefield = NodePath("../../Forcefield")
 
 [node name="Lighting" type="Sprite2D" parent="Map/Planet" unique_id=1043152271]
 modulate = Color(1.0862398, 1.0862398, 1.0862398, 0.039215688)
@@ -883,6 +884,68 @@ offset_bottom = 20.0
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 20
 columns = 4
+
+[node name="Abilities" type="Control" parent="UI" unique_id=306877596]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = -23.0
+offset_right = 71.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Abilities" unique_id=379526704]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -24.0
+offset_right = 72.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = -1
+alignment = 2
+
+[node name="Button" type="Button" parent="UI/Abilities/VBoxContainer" unique_id=1642296723 node_paths=PackedStringArray("ui")]
+custom_minimum_size = Vector2(19, 4)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/h_separation = 0
+theme_override_font_sizes/font_size = 4
+theme_override_styles/normal = ExtResource("18_mfk7g")
+theme_override_styles/pressed = ExtResource("18_mfk7g")
+theme_override_styles/hover = ExtResource("18_mfk7g")
+theme_override_styles/hover_mirrored = ExtResource("18_mfk7g")
+theme_override_styles/disabled = ExtResource("18_mfk7g")
+theme_override_styles/focus = ExtResource("18_mfk7g")
+text = "="
+autowrap_trim_flags = 192
+icon_alignment = 1
+script = ExtResource("20_vgbjf")
+ui = NodePath("../Panel")
+
+[node name="Panel" type="Panel" parent="UI/Abilities/VBoxContainer" unique_id=106603531]
+visible = false
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = ExtResource("18_mfk7g")
+
+[node name="AbilityList" type="HBoxContainer" parent="UI/Abilities/VBoxContainer/Panel" unique_id=1350023333]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 141.0
+offset_bottom = 15.0
+theme_override_constants/separation = 0
 
 [node name="Player" parent="." unique_id=761089432 node_paths=PackedStringArray("money_ui", "level_ui", "level_bar") instance=ExtResource("25_nafu5")]
 money_ui = NodePath("../UI/UITAB/Content/ShopHeader/MATOSYS/BalanceArea/BalanceLabel")

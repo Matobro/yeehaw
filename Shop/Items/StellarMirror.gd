@@ -1,6 +1,7 @@
 class_name StellarMirror
 extends Node2D
 
+var type_name: PowerUp.TypeName = PowerUp.TypeName.STELLARMIRROR
 var orbit_logic: OrbitLogic
 var base_center: Vector2 = Vector2.ZERO
 var base_radius: float = 300.0

@@ -7,7 +7,7 @@
 script = ExtResource("1_1j5td")
 item_type = 1
 power_up_type = 1
-power_up_amount = 0.1
+power_up_amount = 0.2
 item_icon = ExtResource("1_ck7f4")
 item_base_price = 100.0
 item_name = "Firmware Update"

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://6k12l8omhmvb"]
+
+[ext_resource type="Script" uid="uid://cjt0uk5l8tr28" path="res://Abilities/Scripts/SatelliteOvercharge.gd" id="1_b0rnq"]
+[ext_resource type="Texture2D" uid="uid://drcahbk0rf42b" path="res://Abilities/Sprites/SatelliteOvercharge.png" id="1_dlidr"]
+[ext_resource type="Script" uid="uid://dm8vgt43jdtr7" path="res://Abilities/AbilityData.gd" id="1_ktt6p"]
+
+[resource]
+script = ExtResource("1_ktt6p")
+ability_name = "Satellite Overcharge"
+ability_icon = ExtResource("1_dlidr")
+ability_script = ExtResource("1_b0rnq")
+cooldown = 180.0
+description = "Overcharges your satellites, increasing production at the cost of disabling your shield regeneration for the duration."
+metadata/_custom_type_script = "uid://dm8vgt43jdtr7"

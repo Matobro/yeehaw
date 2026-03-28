@@ -6,6 +6,7 @@ var energy_flat_bonus: float = 0.0  # flat multiplier
 var energy_harvest_speed: float = 5.0 # in seconds
 var energy_harvest_bonus: float = 0.0
 var energy_total_multiplier_bonus: float = 1.0
+var energy_overcharge_bonus: float = 1.0
 
 var shield_max: float = 100.0
 var shield_regeneration_delay: float = 5.0 # in seconds
@@ -13,6 +14,7 @@ var shield_regeneration_delay_min: float = 0.1
 var shield_regeneration_amount: float = 1.0
 var shield_regeneration_speed: float = 1.0 # in seconds
 var shield_regeneration_speed_min: float = 0.1
+var shield_regeneration_speed_multiplier: float = 1.0
 
 var ship_building_speed: float = 1.0 # in seconds
 var max_ship_amount: int = 10 # per building
@@ -64,6 +66,8 @@ func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 				orbital_price_multiplier = clampf(orbital_price_multiplier - amount, orbital_price_multiplier_min, orbital_price_multiplier)
 			else:
 				success = false
+		PowerUp.Type.DEFENCE_TURRET_DAMAGE:
+			defence_turret_damage += 1
 
 		_:
 			success = false
@@ -84,7 +88,7 @@ func get_energy_flat_bonus() -> float:
 
 
 func get_total_energy_bonus() -> float:
-	return ((base_energy_harvest + energy_flat_bonus) * energy_multiplier) * energy_total_multiplier_bonus
+	return (((base_energy_harvest + energy_flat_bonus) * energy_multiplier) * energy_total_multiplier_bonus) * energy_overcharge_bonus
 
 
 func get_total_energy_harvest_speed() -> float:

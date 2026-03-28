@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgnjmghgg07ld"
-path="res://.godot/imported/index.icon.png-b92c9a802ad4b78e247784454a6b506f.ctex"
+uid="uid://drcahbk0rf42b"
+path="res://.godot/imported/SatelliteOvercharge.png-aca8ed5e05e936507a917cc80268896d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://docs/index.icon.png"
-dest_files=["res://.godot/imported/index.icon.png-b92c9a802ad4b78e247784454a6b506f.ctex"]
+source_file="res://Abilities/Sprites/SatelliteOvercharge.png"
+dest_files=["res://.godot/imported/SatelliteOvercharge.png-aca8ed5e05e936507a917cc80268896d.ctex"]
 
 [params]
 

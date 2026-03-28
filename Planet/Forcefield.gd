@@ -10,6 +10,7 @@ var shield_current: float = 10.0
 var regeneration_timer: float = 0.0
 var regeneration_tick_timer: float = 0.0
 
+var disabled: bool = false
 var lost: bool = false
 
 func _ready():
@@ -24,7 +25,7 @@ func _physics_process(delta):
 
 func regenerate_shield(delta):
 	var shield_max = Economy.get_max_shield()
-	if shield_current >= shield_max:
+	if shield_current >= shield_max or disabled:
 		return
 
 	regeneration_timer -= delta

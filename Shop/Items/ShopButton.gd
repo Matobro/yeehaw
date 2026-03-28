@@ -23,6 +23,7 @@ var item_price: float
 var price_scaling: float = 1.1
 var current_price_scaling: float
 var amount_owned: int
+var unlocked: bool = false
 
 
 func initialize_shop_item(_item_data: ItemData):
@@ -48,10 +49,6 @@ func _ready():
 	button.pressed.connect(on_button_pressed)
 	button.mouse_entered.connect(on_mouse_hover_enter)
 	button.mouse_exited.connect(on_mouse_hover_exit)
-
-	## Todo
-	if item_name == "Satellite":
-		on_button_pressed()
 
 
 func update_item_data():
@@ -82,6 +79,10 @@ func item_purchased():
 		item_price = item_price * price_scaling
 	amount_owned += 1
 	amount_owned_label.text = str(amount_owned)
+	if item_data.has_unlock and amount_owned == item_data.amount_required:
+		Unlocks.new_unlock(item_data.unlock_type)
+		unlocked = true
+
 	await get_tree().physics_frame
 	update_item_data()
 
@@ -100,27 +101,34 @@ func on_mouse_hover_exit():
 
 
 func format_description(text: String) -> String:
-	return (
-		text
-		. replace("{value}", "%d%%" % int(power_up_amount * 100))
-		. replace("{value2}", "%0.1f" % (power_up_amount * 100))
-		. replace("{flat}", str(power_up_amount))
-		. replace("{total_energy}", str("%0.1f" % Economy.get_total_energy_bonus()))
-		. replace("{harvest_speed}", str("%0.1f" % Economy.get_total_energy_harvest_speed()))
-		. replace("{economist_bonus}", "%d%%" % int((Economy.get_energy_total_multiplier_bonus() * 100) - 100.0))
-		. replace("{max_shield}", str("%0.1f" % Economy.get_max_shield()))
-		. replace("{shield_delay}", str("%0.1f" % Economy.get_shield_regeneration_delay()))
-		. replace("{regeneration_amount}", str("%0.1f" % Economy.get_shield_regeneration_amount()))
-		. replace("{regeneration_speed}", str("%0.1f" % Economy.get_shield_regeneration_speed()))
-		. replace("{energy_flat_bonus}", str("%0.1f" % Economy.get_energy_flat_bonus()))
-		. replace("{energy_multiplier}", "%d%%" % int((Economy.get_energy_multiplier() * 100) - 100.0))
+	var formatted_text = text
+	if item_data.has_unlock and unlocked:
+		formatted_text = formatted_text.replace("{unlock_line}", "")
+	else:
+		formatted_text = formatted_text.replace("{unlock_line}", item_data.unlock_text)
+
+	formatted_text = formatted_text.replace("{value}", "%d%%" % int(power_up_amount * 100))\
+		. replace("{value2}", "%0.1f" % (power_up_amount * 100))\
+		. replace("{flat}", str(power_up_amount))\
+		. replace("{total_energy}", str("%0.1f" % Economy.get_total_energy_bonus()))\
+		. replace("{harvest_speed}", str("%0.1f" % Economy.get_total_energy_harvest_speed()))\
+		. replace("{economist_bonus}", "%d%%" % int((Economy.get_energy_total_multiplier_bonus() * 100) - 100.0))\
+		. replace("{max_shield}", str("%0.1f" % Economy.get_max_shield()))\
+		. replace("{shield_delay}", str("%0.1f" % Economy.get_shield_regeneration_delay()))\
+		. replace("{regeneration_amount}", str("%0.1f" % Economy.get_shield_regeneration_amount()))\
+		. replace("{regeneration_speed}", str("%0.1f" % Economy.get_shield_regeneration_speed()))\
+		. replace("{energy_flat_bonus}", str("%0.1f" % Economy.get_energy_flat_bonus()))\
+		. replace("{energy_multiplier}", "%d%%" % int((Economy.get_energy_multiplier() * 100) - 100.0))\
 		. replace(
 			"{satellite_production}",
 			str("%0.1f" % (Economy.get_energy_per_second() * amount_owned))
-		)
-		. replace("{pd_speed}", str("%0.1f" % Economy.get_point_defence_speed()))
-		. replace("{max_ships}", str(Economy.get_max_ship_count()))
-		. replace("{orbital_price}", "%0.1f" % (Economy.get_orbital_price_multiplier() * 100))
-		. replace("{orbital_items}", Shop.get_items_names_by_subcategory(1))
-		. replace("{orbital_min_price}", "%d%%" % (Economy.get_orbital_price_multiplier_min() * 100))
-	)
+		)\
+		. replace("{pd_speed}", str("%0.1f" % Economy.get_point_defence_speed()))\
+		. replace("{max_ships}", str(Economy.get_max_ship_count()))\
+		. replace("{orbital_price}", "%0.1f" % (Economy.get_orbital_price_multiplier() * 100))\
+		. replace("{orbital_items}", Shop.get_items_names_by_subcategory(1))\
+		. replace("{orbital_min_price}", "%d%%" % (Economy.get_orbital_price_multiplier_min() * 100))\
+		. replace("{unlock_at}", str(item_data.amount_required))\
+		. replace("{defence_turret_damage}", str("%0.1f" % Economy.get_defence_turret_damage()))
+
+	return formatted_text

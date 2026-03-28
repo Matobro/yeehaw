@@ -4,6 +4,7 @@ extends Node2D
 @export var alarm_area: AlarmArea
 @export var ally_area: Area2D
 @export var bullet_area: BulletArea
+@export var forcefield: Forcefield
 
 
 func _ready() -> void:
@@ -21,3 +22,5 @@ func get_ally_area() -> Area2D:
 func get_bullet_area() -> BulletArea:
 	return bullet_area
 
+func get_force_field() -> Forcefield:
+	return forcefield

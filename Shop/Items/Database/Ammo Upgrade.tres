@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://caphgim75v324"]
+
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_aip10"]
+[ext_resource type="Texture2D" uid="uid://q0oe5rdfo25u" path="res://Shop/Items/Sprites/TitaniumBulletTips.png" id="1_eny62"]
+
+[resource]
+script = ExtResource("1_aip10")
+item_category = 2
+item_type = 1
+power_up_type = 11
+power_up_amount = 1.0
+item_icon = ExtResource("1_eny62")
+item_base_price = 250.0
+item_name = "Ammo Upgrade"
+price_scaling = 2.0
+item_description = "Increases autocannon damage by [color=green]{flat}[/color]
+
+Current: [color=yellow]{defence_turret_damage}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

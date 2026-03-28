@@ -13,5 +13,10 @@ item_base_price = 1.0
 item_name = "Satellite"
 price_scaling = 2.0
 item_description = "Generates [color=green]{total_energy}[/color] energy every [color=green]{harvest_speed}[/color] second
-Satellite network production: [color=yellow]{satellite_production}[/color]/s"
+Satellite network production: [color=yellow]{satellite_production}[/color]/s
+
+{unlock_line}"
+has_unlock = true
+amount_required = 15
+unlock_text = "Unlocks ability at [color=red]{unlock_at}[/color] satellites"
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

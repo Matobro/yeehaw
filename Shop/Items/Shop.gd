@@ -11,7 +11,8 @@ var item_files = [
 	"res://Shop/Items/Database/FirmwareUpdate.tres",
 	"res://Shop/Items/Database/SolarPlating.tres",
 	"res://Shop/Items/Database/StellarMirror.tres",
-	"res://Shop/Items/Database/Autocannon.tres"
+	"res://Shop/Items/Database/Autocannon.tres",
+	"res://Shop/Items/Database/Ammo Upgrade.tres"
 ]
 
 var shop_button_scene: PackedScene = preload("res://Shop/Items/ShopButton.tscn")
@@ -26,6 +27,7 @@ var defence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control
 var offence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/OffenceShop/ShopItems"
 
 var all_shop_buttons: Array[ShopButton]
+var deployed_items := {}
 
 func _ready():
 	initialize_items()
@@ -81,6 +83,7 @@ func shop_item_purchased(shop_button: ShopButton):
 		var item_scene: PackedScene = shop_button.item_scene
 		var new_item = item_scene.instantiate()
 		add_child(new_item)
+		add_deployed_item(new_item)
 		new_item.item_purchased(player)
 		success = true
 
@@ -98,6 +101,19 @@ func shop_item_purchased(shop_button: ShopButton):
 		player.update_money()
 		shop_button.item_purchased()
 
+
+func add_deployed_item(item):
+	var type = item.type_name
+	if not deployed_items.has(type):
+		deployed_items[type] = []
+	deployed_items[type].append(item)
+
+
+func get_deployed_items_by_type(type) -> Array:
+	if deployed_items.has(type):
+		return deployed_items[type]
+	return []
+	
 
 func force_update_shop():
 	for i in range(all_shop_buttons.size()):
