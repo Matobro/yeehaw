@@ -4,7 +4,7 @@ extends Node2D
 @export var built_ship: ShipStats
 
 
-var type_name: PowerUp.TypeName = PowerUp.TypeName.SHIPFACTORY
+var type_name: String = "patrol_hq"
 var orbit_logic: OrbitLogic
 var variance: float = 0.2
 var base_center: Vector2 = Vector2.ZERO

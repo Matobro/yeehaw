@@ -3,7 +3,7 @@ extends Node2D
 
 @export var bullet_scene: PackedScene
 
-var type_name: PowerUp.TypeName = PowerUp.TypeName.DEFENCETURRET
+var type_name: String = "autocannon"
 var orbit_logic: OrbitLogic
 var variance: float = 0.01
 var base_center: Vector2 = Vector2.ZERO

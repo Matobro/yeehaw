@@ -2,9 +2,17 @@
 
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_s5ncv"]
 [ext_resource type="Texture2D" uid="uid://dmwnchs307m26" path="res://Shop/Items/Sprites/SteelBeam.png" id="1_t7thl"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="2_qh4au"]
+
+[sub_resource type="Resource" id="Resource_fh23r"]
+script = ExtResource("2_qh4au")
+type = 1
+item_id = "satellite"
+metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
 
 [resource]
 script = ExtResource("1_s5ncv")
+id = "solar_plating"
 item_type = 1
 power_up_type = 2
 power_up_amount = 0.1
@@ -14,4 +22,5 @@ item_name = "Solarplating"
 price_scaling = 1.5
 item_description = "Increases satellite energy harvest speed by [color=green]{value}[/color]
 Current harvest speed: [color=yellow]{harvest_speed}[/color]"
+requirements = Array[ExtResource("2_qh4au")]([SubResource("Resource_fh23r")])
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

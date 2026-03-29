@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://b44ut52im4y88" path="res://Shop/Items/Sprites/buollding.png" id="1_6vv47"]
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_w5t6q"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="2_0p6ou"]
 
 [resource]
 script = ExtResource("1_w5t6q")
+id = "relay_station"
 item_category = 1
 item_type = 1
 power_up_type = 5

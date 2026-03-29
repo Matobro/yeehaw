@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://b5nwcqcsip6mu" path="res://Shop/Perks/Sprites/Skellichaun.png" id="1_c2a54"]
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_x8y5t"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="2_8ffw1"]
 
 [resource]
 script = ExtResource("1_x8y5t")
+id = "economist"
 item_category = 3
 item_type = 1
 power_up_type = 8

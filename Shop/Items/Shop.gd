@@ -1,5 +1,6 @@
 extends Node2D
 
+
 var item_files = [
 	"res://Shop/Items/Database/PatrolHQ.tres",
 	"res://Shop/Items/Database/PointDefenceTurret.tres",
@@ -16,125 +17,95 @@ var item_files = [
 ]
 
 var shop_button_scene: PackedScene = preload("res://Shop/Items/ShopButton.tscn")
-
-var items: Array[ItemData]
-
-@onready
-var economy_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/EconomyShop/ShopItems"
-@onready
-var defence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/DefenceShop/ShopItems"
-@onready
-var offence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/OffenceShop/ShopItems"
-
-var all_shop_buttons: Array[ShopButton]
+var items: Array[ItemData] = []
+var all_shop_buttons: Array[ShopButton] = []
 var deployed_items := {}
 
+
+@onready var economy_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/EconomyShop/ShopItems"
+@onready var defence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/DefenceShop/ShopItems"
+@onready var offence_shop_list: GridContainer = $"../PlanetScene/UI/UITAB/Content/Control/OffenceShop/ShopItems"
+
+
 func _ready():
-	initialize_items()
-
-
-func initialize_items():
 	for path in item_files:
 		var item = load(path) as ItemData
-		if item != null:
+		if item:
 			items.append(item)
-			shop_add_item(item)
+			_add_shop_button(item)
 
 
-func shop_add_item(new_item: ItemData):
-	var new_shop_button = shop_button_scene.instantiate()
-	new_shop_button.initialize_shop_item(new_item)
-	match new_item.item_category:
-		0:  #economy
-			economy_shop_list.add_child(new_shop_button)
-		1:  #defence
-			defence_shop_list.add_child(new_shop_button)
-		2:  #offence
-			offence_shop_list.add_child(new_shop_button)
-	new_shop_button.shop_button_pressed.connect(shop_item_purchased)
+func _add_shop_button(item: ItemData):
+	var btn = shop_button_scene.instantiate() as ShopButton
+	btn.initialize_shop_item(item)
+	match item.item_category:
+		0: economy_shop_list.add_child(btn)
+		1: defence_shop_list.add_child(btn)
+		2: offence_shop_list.add_child(btn)
 
-	all_shop_buttons.append(new_shop_button)
+	btn.shop_button_pressed.connect(_on_shop_item_purchased)
+	all_shop_buttons.append(btn)
 
-func shop_item_purchased(shop_button: ShopButton):
+
+func _on_shop_item_purchased(button: ShopButton):
 	var player: Player = PlayerManager.player
-	var player_energy: float = player.energy
-	var item_type: int = shop_button.item_type
-	var item_sub_category: int = shop_button.item_data.item_sub_category
-	var price_multiplier: float
-	match item_sub_category:
-		# none/misc
-		0:
-			price_multiplier = 1.0
-		1:
-			price_multiplier = Economy.orbital_price_multiplier
-		_:
-			price_multiplier = 1.0
+	var price: float = button.current_price
 
-	var item_price: float = shop_button.item_price * price_multiplier
-	var success: bool
-
-	## Money stuff
-	if !has_funds(player_energy, item_price):
+	if player.energy < price or !button.item_data.meets_requirements():
 		return
 
-	# Deployable
-	if item_type == 0:
-		## Spawn item
-		var item_scene: PackedScene = shop_button.item_scene
-		var new_item = item_scene.instantiate()
-		add_child(new_item)
-		add_deployed_item(new_item)
-		new_item.item_purchased(player)
+	var success: bool = false
+
+	if button.item_data.item_type == 0: # deployable
+		var instance = button.item_data.item_scene.instantiate()
+		add_child(instance)
+		_add_deployed_item(instance)
+		instance.item_purchased(player)
 		success = true
 
-	# PowerUp
-	elif item_type == 1:
-		var power_up_type: PowerUp.Type = shop_button.power_up_type
-		var power_up_amount: float = shop_button.power_up_amount
+	elif button.item_data.item_type == 1: # powerup
+		success = Economy.add_power_up(button.item_data.power_up_type, button.item_data.power_up_amount)
 
-		# Some items are limited such as attack speed, its checked here if already at min
-		success = Economy.add_power_up(power_up_type, power_up_amount)
-
-	# If purchase made
 	if success:
-		player.energy -= item_price
+		player.energy -= price
 		player.update_money()
-		shop_button.item_purchased()
+		button.item_purchased()
+		_update_shop_buttons()
 
 
-func add_deployed_item(item):
-	var type = item.type_name
-	if not deployed_items.has(type):
-		deployed_items[type] = []
-	deployed_items[type].append(item)
+func _add_deployed_item(item):
+	var t = item.type_name
+	if not deployed_items.has(t):
+		deployed_items[t] = []
+	deployed_items[t].append(item)
 
 
-func get_deployed_items_by_type(type) -> Array:
-	if deployed_items.has(type):
-		return deployed_items[type]
-	return []
-	
-
-func force_update_shop():
-	for i in range(all_shop_buttons.size()):
-		var shop_button = all_shop_buttons[i]
-		shop_button.update_item_data()
+func get_deployed_items_by_type(type_name: String) -> Array:
+	return deployed_items.get(type_name, [])
 
 
-func has_funds(energy, price) -> bool:
-	return energy >= price
+func _update_shop_buttons():
+	for btn in all_shop_buttons:
+		btn.update_item_data()
 
 
-func get_items_by_subcategory(subcat: int) -> Array[ItemData]:
+func get_items_by_subcategory(subcat: int) -> Array:
 	var result: Array = []
 	for item in items:
 		if item.item_sub_category == subcat:
 			result.append(item)
 	return result
 
+
 func get_items_names_by_subcategory(subcat: int) -> String:
-	var names: Array[String] = []
-	for item in items:
-		if item.item_sub_category == subcat:
-			names.append(item.item_name)
+	var names: Array = []
+	for item in get_items_by_subcategory(subcat):
+		names.append(item.item_name)
 	return ", ".join(names)
+
+
+func get_item_name(item_id: String) -> String:
+	for item in items:
+		if item.id == item_id:
+			return item.item_name
+	return item_id

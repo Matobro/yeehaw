@@ -3,9 +3,11 @@
 [ext_resource type="Texture2D" uid="uid://dr7ui8j0e575d" path="res://Shop/Items/Sprites/Satellite.png" id="1_l5dhp"]
 [ext_resource type="PackedScene" uid="uid://dnlmn2dllx48o" path="res://Shop/Items/Satellite.tscn" id="1_x04dl"]
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="2_l5dhp"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="3_roxih"]
 
 [resource]
 script = ExtResource("2_l5dhp")
+id = "satellite"
 item_sub_category = 1
 item_scene = ExtResource("1_x04dl")
 item_icon = ExtResource("1_l5dhp")
@@ -18,5 +20,6 @@ Satellite network production: [color=yellow]{satellite_production}[/color]/s
 {unlock_line}"
 has_unlock = true
 amount_required = 15
+unlock_type = 1
 unlock_text = "Unlocks ability at [color=red]{unlock_at}[/color] satellites"
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://y2lfueui060h" path="res://Shop/Items/Sprites/ForceField.png" id="1_wrvyd"]
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="2_nso4r"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="2_to175"]
 
 [resource]
 script = ExtResource("2_nso4r")
+id = "shield_booster"
 item_category = 1
 item_type = 1
 power_up_type = 3

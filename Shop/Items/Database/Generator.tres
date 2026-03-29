@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bc6tv4bxpmk8u" path="res://Shop/Items/Sprites/MoreGears.png" id="1_33nrw"]
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_r2w3r"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="2_fddkx"]
 
 [resource]
 script = ExtResource("1_r2w3r")
+id = "generator"
 item_category = 1
 item_type = 1
 power_up_type = 4

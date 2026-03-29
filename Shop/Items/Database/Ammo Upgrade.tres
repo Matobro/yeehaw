@@ -2,9 +2,17 @@
 
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_aip10"]
 [ext_resource type="Texture2D" uid="uid://q0oe5rdfo25u" path="res://Shop/Items/Sprites/TitaniumBulletTips.png" id="1_eny62"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="2_3gv8b"]
+
+[sub_resource type="Resource" id="Resource_3gv8b"]
+script = ExtResource("2_3gv8b")
+type = 1
+item_id = "autocannon"
+metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
 
 [resource]
 script = ExtResource("1_aip10")
+id = "ammo_upgrade"
 item_category = 2
 item_type = 1
 power_up_type = 11
@@ -16,4 +24,5 @@ price_scaling = 2.0
 item_description = "Increases autocannon damage by [color=green]{flat}[/color]
 
 Current: [color=yellow]{defence_turret_damage}[/color]"
+requirements = Array[ExtResource("2_3gv8b")]([SubResource("Resource_3gv8b")])
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

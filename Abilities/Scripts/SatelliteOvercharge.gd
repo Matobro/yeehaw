@@ -5,7 +5,7 @@ var duration = 30.0
 var ability_targets: Array
 
 func _ready():
-	ability_targets = Shop.get_deployed_items_by_type(PowerUp.TypeName.SATELLITE)
+	ability_targets = Shop.get_deployed_items_by_type("satellite")
 	for target in ability_targets:
 		target.overcharge()
 

@@ -7,69 +7,68 @@ var item_files = [
 ]
 
 var shop_button_scene: PackedScene = preload("res://Shop/Items/ShopButton.tscn")
+var items: Array[ItemData] = []
+var all_shop_buttons: Array[ShopButton] = []
 
-var items: Array[ItemData]
-
-@onready
-var perk_list: GridContainer = $"../PlanetScene/UI/COMMANDERTAB/Content/Control/PerkShop/ShopItems"
+@onready var perk_list: GridContainer = $"../PlanetScene/UI/COMMANDERTAB/Content/Control/PerkShop/ShopItems"
 
 
 func _ready():
-	initialize_items()
-
-
-func initialize_items():
 	for path in item_files:
 		var item = load(path) as ItemData
-		if item != null:
+		if item:
 			items.append(item)
-			shop_add_item(item)
+			_add_shop_button(item)
 
 
-func shop_add_item(new_item: ItemData):
-	var new_shop_button = shop_button_scene.instantiate()
-	new_shop_button.initialize_shop_item(new_item)
-	match new_item.item_category:
-		3:  # perks
-			perk_list.add_child(new_shop_button)
-	new_shop_button.shop_button_pressed.connect(shop_item_purchased)
+func _add_shop_button(item: ItemData):
+	var btn = shop_button_scene.instantiate() as ShopButton
+	btn.initialize_shop_item(item)
+
+	if item.item_category == 3:
+		perk_list.add_child(btn)
+
+	btn.shop_button_pressed.connect(_on_shop_item_purchased)
+	all_shop_buttons.append(btn)
 
 
-func shop_item_purchased(shop_button: ShopButton):
+func _on_shop_item_purchased(button: ShopButton):
 	var player: Player = PlayerManager.player
-	var player_perk_points: float = player.available_perk_points
-	var item_type: int = shop_button.item_type
-	var item_price: float = shop_button.item_price
-	var success: bool
+	var price: float = button.current_price
 
-	## Money stuff
-	if !has_funds(player_perk_points, item_price):
+	if player.available_perk_points < price or not button.item_data.meets_requirements():
 		return
 
-	# Deployable
-	if item_type == 0:
-		## Spawn item
-		var item_scene: PackedScene = shop_button.item_scene
-		var new_item = item_scene.instantiate()
-		add_child(new_item)
-		new_item.item_purchased(player)
+	var success: bool = false
+
+	# deployable
+	if button.item_data.item_type == 0:
+		var instance = button.item_data.item_scene.instantiate()
+		add_child(instance)
+		instance.item_purchased(player)
 		success = true
 
-	# PowerUp
-	elif item_type == 1:
-		var power_up_type: PowerUp.Type = shop_button.power_up_type
-		var power_up_amount: float = shop_button.power_up_amount
+	# powerup
+	elif button.item_data.item_type == 1:
+		success = Economy.add_power_up(button.item_data.power_up_type, button.item_data.power_up_amount)
 
-		# Some items are limited such as attack speed, its checked here if already at min
-		success = Economy.add_power_up(power_up_type, power_up_amount)
-
-	# If purchase made
 	if success:
-		player.available_perk_points -= round(item_price)
+		player.available_perk_points -= round(price)
 		player.update_perk_points()
-		shop_button.item_purchased()
-		Shop.force_update_shop()
+
+		button.item_purchased()
+
+		_update_shop_buttons()
 
 
-func has_funds(perk_points, price) -> bool:
-	return perk_points >= round(price)
+func _update_shop_buttons():
+	for btn in all_shop_buttons:
+		btn.update_item_data()
+
+
+
+func get_item_name(item_id: String) -> String:
+	for item in items:
+		if item.id == item_id:
+			return item.item_name
+	return item_id

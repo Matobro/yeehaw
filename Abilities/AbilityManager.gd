@@ -14,6 +14,8 @@ func add_ability(ability_data):
 
 func add_ability_by_unlock(unlock: Unlock.Type):
 	print("adding ability")
-	if config.abilities.has(unlock):
-		print("success")
-		add_ability(config.abilities[unlock])
+	for key in config.abilities.keys():
+		if str(key) == str(unlock):
+			print("success")
+			add_ability(config.abilities[key])
+			return

@@ -2,7 +2,7 @@ class_name PointDefenceTurret
 extends Node2D
 
 
-var type_name: PowerUp.TypeName = PowerUp.TypeName.POINTDEFENCETURRET
+var type_name: String = "point_defence_turret"
 var orbit_logic: OrbitLogic
 var variance: float = 0.01
 var base_center: Vector2 = Vector2.ZERO

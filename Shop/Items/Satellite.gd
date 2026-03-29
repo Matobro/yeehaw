@@ -4,7 +4,7 @@ extends Node2D
 signal energy_harvested(amount: float)
 
 
-var type_name: PowerUp.TypeName = PowerUp.TypeName.SATELLITE
+var type_name: String = "satellite"
 var orbit_logic: OrbitLogic
 var variance: float = 0.2
 var base_center: Vector2 = Vector2.ZERO

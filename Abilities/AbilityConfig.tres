@@ -7,6 +7,6 @@
 [resource]
 script = ExtResource("2_0mq0l")
 abilities = Dictionary[int, ExtResource("1_omrcn")]({
-0: ExtResource("2_5dmyd")
+1: ExtResource("2_5dmyd")
 })
 metadata/_custom_type_script = "uid://pfybl62vbq0g"

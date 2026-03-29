@@ -3,9 +3,30 @@
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_0tqn2"]
 [ext_resource type="Texture2D" uid="uid://d0kmrj2b6oooy" path="res://Shop/Items/Sprites/AutocannonIcon.png" id="1_o0x2y"]
 [ext_resource type="PackedScene" uid="uid://cvo7wi87355kh" path="res://Shop/Items/DefenceTurret.tscn" id="2_37w7o"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="3_mcbc0"]
+
+[sub_resource type="Resource" id="Resource_mcbc0"]
+script = ExtResource("3_mcbc0")
+type = 1
+item_id = "shield_booster"
+metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
+
+[sub_resource type="Resource" id="Resource_4258u"]
+script = ExtResource("3_mcbc0")
+type = 1
+item_id = "generator"
+metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
+
+[sub_resource type="Resource" id="Resource_rpm7y"]
+script = ExtResource("3_mcbc0")
+type = 2
+perk_id = "orbital_engineer"
+required_amount = 3
+metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
 
 [resource]
 script = ExtResource("1_0tqn2")
+id = "autocannon"
 item_category = 2
 item_sub_category = 1
 item_scene = ExtResource("2_37w7o")
@@ -13,4 +34,5 @@ item_icon = ExtResource("1_o0x2y")
 item_base_price = 250.0
 item_name = "Autocannon"
 item_description = "Shoots at enemy ships"
+requirements = Array[ExtResource("3_mcbc0")]([SubResource("Resource_mcbc0"), SubResource("Resource_4258u"), SubResource("Resource_rpm7y")])
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

@@ -3,9 +3,17 @@
 [ext_resource type="Texture2D" uid="uid://dj0oigg5plukx" path="res://Shop/Items/Sprites/StellarMirror.png" id="1_gyu6s"]
 [ext_resource type="PackedScene" uid="uid://bi5ihbeq34lm0" path="res://Shop/Items/StellarMirror.tscn" id="1_r8qkc"]
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="2_gyu6s"]
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="3_p0puk"]
+
+[sub_resource type="Resource" id="Resource_fh23r"]
+script = ExtResource("3_p0puk")
+type = 1
+item_id = "satellite"
+metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
 
 [resource]
 script = ExtResource("2_gyu6s")
+id = "stellar_mirror"
 power_up_amount = 0.1
 item_scene = ExtResource("1_r8qkc")
 item_icon = ExtResource("1_gyu6s")
@@ -14,4 +22,5 @@ item_name = "Stellar Mirror"
 price_scaling = 1.5
 item_description = "Increases satellite energy production by [color=green]{value}[/color]
 Current: [color=yellow]{energy_multiplier}[/color]"
+requirements = Array[ExtResource("3_p0puk")]([SubResource("Resource_fh23r")])
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"
