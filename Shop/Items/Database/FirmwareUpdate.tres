@@ -4,10 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://cfb4bfmhsix2h" path="res://Shop/Items/Sprites/SystemUpdate.png" id="1_ck7f4"]
 [ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="2_fh23r"]
 
-[sub_resource type="Resource" id="Resource_fh23r"]
+[sub_resource type="Resource" id="Resource_cep4l"]
 script = ExtResource("2_fh23r")
 type = 1
 item_id = "satellite"
+metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
+
+[sub_resource type="Resource" id="Resource_fh23r"]
+script = ExtResource("2_fh23r")
+type = 2
+perk_id = "economist"
 metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
 
 [resource]
@@ -21,5 +27,5 @@ item_base_price = 100.0
 item_name = "Firmware Update"
 item_description = "Increases satellite energy production by [color=green]{flat}[/color]
 Current flat bonus: [color=yellow]{energy_flat_bonus}[/color]"
-requirements = Array[ExtResource("2_fh23r")]([SubResource("Resource_fh23r")])
+requirements = Array[ExtResource("2_fh23r")]([SubResource("Resource_cep4l"), SubResource("Resource_fh23r")])
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

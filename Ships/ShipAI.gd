@@ -72,8 +72,10 @@ func on_damage_taken(amount):
 		dead = true
 		if ship_team != 1:
 			var player = PlayerManager.get_player()
-			player.add_energy(stats.energy_dropped)
-			player.add_experience(stats.experience_dropped)
+			var xp_gain: int = int(round(stats.experience_dropped * Economy.get_experience_multiplier()))
+			var energy_gain: int = int(round(stats.energy_dropped * Economy.get_loot_energy_multiplier()))
+			player.add_energy(energy_gain)
+			player.add_experience(xp_gain)
 			
 		emit_signal("ship_destroyed", self)
 		call_deferred("queue_free")

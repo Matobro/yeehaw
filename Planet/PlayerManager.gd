@@ -7,7 +7,7 @@ extends Node
 func get_player() -> Player:
     return player
 
-func get_planet() -> Node2D:
+func get_planet() -> Planet:
     return planet
 
 func end_screen():

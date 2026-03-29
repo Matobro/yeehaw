@@ -1,5 +1,6 @@
 extends Node2D
 
+var missing_texture: Texture2D = preload("res://Shop/Items/Sprites/MissingTexture.png")
 
 var item_files = [
 	"res://Shop/Items/Database/PatrolHQ.tres",
@@ -49,7 +50,7 @@ func _add_shop_button(item: ItemData):
 
 func _on_shop_item_purchased(button: ShopButton):
 	var player: Player = PlayerManager.player
-	var price: float = button.current_price
+	var price: float = button.item_data.get_price()
 
 	if player.energy < price or !button.item_data.meets_requirements():
 		return
@@ -71,6 +72,7 @@ func _on_shop_item_purchased(button: ShopButton):
 		player.update_money()
 		button.item_purchased()
 		_update_shop_buttons()
+		CommanderShop._update_shop_buttons()
 
 
 func _add_deployed_item(item):

@@ -19,9 +19,8 @@ metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
 
 [sub_resource type="Resource" id="Resource_rpm7y"]
 script = ExtResource("3_mcbc0")
-type = 2
-perk_id = "orbital_engineer"
-required_amount = 3
+type = 3
+required_amount = 5
 metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
 
 [resource]

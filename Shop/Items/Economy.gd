@@ -31,6 +31,9 @@ var defence_turret_bullet_speed: float = 200.0
 var orbital_price_multiplier: float = 1.0
 var orbital_price_multiplier_min: float = 0.05
 
+var experience_multiplier: float = 1.0
+var loot_energy_multiplier: float = 1.0
+
 func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 	var success: bool = true
 
@@ -43,6 +46,7 @@ func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 			energy_harvest_bonus += amount
 		PowerUp.Type.MAX_SHIELD:
 			shield_max += amount
+			PlayerManager.get_planet().get_force_field().on_shield_value_changed()
 		PowerUp.Type.SHIELD_DELAY:
 			if shield_regeneration_delay > shield_regeneration_delay_min:
 				shield_regeneration_delay = clampf(shield_regeneration_delay - amount, shield_regeneration_delay_min, shield_regeneration_delay)
@@ -60,7 +64,7 @@ func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 		PowerUp.Type.ENERGY_TOTAL_MULTIPLIER_BONUS:
 			energy_total_multiplier_bonus += amount
 		PowerUp.Type.MAX_SHIPS:
-			max_ship_amount += 1
+			max_ship_amount += round(amount)
 		PowerUp.Type.ORBITAL_PRICE_DECREASE:
 			if orbital_price_multiplier > orbital_price_multiplier_min:
 				orbital_price_multiplier = clampf(orbital_price_multiplier - amount, orbital_price_multiplier_min, orbital_price_multiplier)
@@ -68,6 +72,10 @@ func add_power_up(type: PowerUp.Type, amount: float) -> bool:
 				success = false
 		PowerUp.Type.DEFENCE_TURRET_DAMAGE:
 			defence_turret_damage += 1
+		PowerUp.Type.EXPERIENCE_MULTIPLIER:
+			experience_multiplier += amount
+		PowerUp.Type.LOOT_ENERGY_MULTIPLIER:
+			loot_energy_multiplier += amount
 
 		_:
 			success = false
@@ -103,6 +111,7 @@ func get_energy_per_second() -> float:
 
 func get_energy_total_multiplier_bonus() -> float:
 	return energy_total_multiplier_bonus
+
 
 func get_shield_regeneration_delay() -> float:
 	return shield_regeneration_delay
@@ -162,3 +171,11 @@ func get_orbital_price_multiplier() -> float:
 
 func get_orbital_price_multiplier_min() -> float:
 	return orbital_price_multiplier_min
+
+
+func get_experience_multiplier() -> float:
+	return experience_multiplier
+
+
+func get_loot_energy_multiplier() -> float:
+	return loot_energy_multiplier

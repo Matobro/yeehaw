@@ -16,16 +16,19 @@ var item_data: ItemData
 var amount_owned: int = 0
 var unlocked: bool = false
 
-var current_price: float
-
 
 func initialize_shop_item(_item_data: ItemData):
 	item_data = _item_data
+	if item_data.item_icon == null:
+		item_data.item_icon = Shop.missing_texture
+	
+	if item_data.item_category == 3:
+		item_price_label.visible = false
 	item_icon.texture = item_data.item_icon
 	item_name_label.text = item_data.item_name
 	item_price_label.text = str(item_data.get_price())
 	tool_tip_label.text = item_data.format_description(amount_owned)
-	current_price = item_data.get_price()
+	item_data.item_current_price = item_data.item_base_price
 	button.pressed.connect(_on_pressed)
 	button.mouse_entered.connect(_on_mouse_hover_enter)
 	button.mouse_exited.connect(_on_mouse_hover_exit)
@@ -36,7 +39,7 @@ func update_item_data():
 	var available = item_data.meets_requirements()
 	button.disabled = !available
 	disabled_panel.visible = !available
-	item_price_label.text = str("%0.1f" % current_price)
+	item_price_label.text = str("%0.1f" % item_data.get_price())
 	tool_tip_label.text = item_data.format_description(amount_owned)
 
 	if available:
@@ -53,7 +56,7 @@ func item_purchased():
 			Progression.add_item(item_data.id)
 	amount_owned += 1
 	amount_owned_label.text = str(amount_owned)
-	current_price *= item_data.price_scaling
+	item_data.increase_price()
 	if item_data.has_unlock and amount_owned >= item_data.amount_required:
 		Progression.add_unlock(item_data.unlock_type)
 		unlocked = true

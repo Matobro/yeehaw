@@ -3,7 +3,9 @@ extends Node2D
 var item_files = [
 	"res://Shop/Perks/Database/Economist.tres",
 	"res://Shop/Perks/Database/FleetAdmiral.tres",
-	"res://Shop/Perks/Database/OrbitalEngineer.tres"
+	"res://Shop/Perks/Database/OrbitalEngineer.tres",
+	"res://Shop/Perks/Database/Scholar.tres",
+	"res://Shop/Perks/Database/Pirate.tres"
 ]
 
 var shop_button_scene: PackedScene = preload("res://Shop/Items/ShopButton.tscn")
@@ -34,7 +36,7 @@ func _add_shop_button(item: ItemData):
 
 func _on_shop_item_purchased(button: ShopButton):
 	var player: Player = PlayerManager.player
-	var price: float = button.current_price
+	var price: float = button.item_data.get_price()
 
 	if player.available_perk_points < price or not button.item_data.meets_requirements():
 		return
@@ -55,10 +57,9 @@ func _on_shop_item_purchased(button: ShopButton):
 	if success:
 		player.available_perk_points -= round(price)
 		player.update_perk_points()
-
 		button.item_purchased()
-
 		_update_shop_buttons()
+		Shop._update_shop_buttons()
 
 
 func _update_shop_buttons():

@@ -5,13 +5,6 @@
 [ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="1_vtm2t"]
 [ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="3_75u17"]
 
-[sub_resource type="Resource" id="Resource_75u17"]
-script = ExtResource("3_75u17")
-type = 1
-item_id = "shield_booster"
-required_amount = 3
-metadata/_custom_type_script = "uid://c1uaqbeq2moe8"
-
 [sub_resource type="Resource" id="Resource_4selq"]
 script = ExtResource("3_75u17")
 type = 2
@@ -32,5 +25,5 @@ price_scaling = 1.5
 item_description = "Shoots down incoming bombs
 
 Bomb intercepted every [color=yellow]{pd_speed}s[/color]"
-requirements = Array[ExtResource("3_75u17")]([SubResource("Resource_75u17"), SubResource("Resource_4selq")])
+requirements = Array[ExtResource("3_75u17")]([SubResource("Resource_4selq")])
 metadata/_custom_type_script = "uid://ckw3mtxxh7toi"

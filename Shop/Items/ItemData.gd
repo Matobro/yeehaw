@@ -16,6 +16,7 @@ class_name ItemData
 @export_category("Item stats")
 @export var item_icon: Texture2D
 @export var item_base_price: float
+var item_current_price: float
 @export var item_name: String
 @export var price_scaling: float = 1.1
 @export_multiline var item_description: String
@@ -33,11 +34,16 @@ class_name ItemData
 func meets_requirements() -> bool:
 	return Progression.meets_all(requirements)
 
+
 func get_price() -> float:
 	match item_sub_category:
-		1: return item_base_price * Economy.orbital_price_multiplier
-		_: return item_base_price
+		1: return item_current_price * Economy.orbital_price_multiplier
+		_: return item_current_price
 
+func increase_price():
+	item_current_price *= price_scaling
+
+	
 func format_description(amount_owned: int = 0) -> String:
 	var formatted: String = item_description
 
@@ -66,7 +72,9 @@ func format_description(amount_owned: int = 0) -> String:
 		"{orbital_items}": Shop.get_items_names_by_subcategory(1),
 		"{orbital_min_price}": "%d%%" % (Economy.get_orbital_price_multiplier_min() * 100),
 		"{unlock_at}": str(amount_required),
-		"{defence_turret_damage}": "%0.1f" % Economy.get_defence_turret_damage()
+		"{defence_turret_damage}": "%0.1f" % Economy.get_defence_turret_damage(),
+		"{experience_multiplier}": "%d%%" % int((Economy.get_experience_multiplier() * 100) - 100.0),
+		"{loot_energy_multiplier}": "%d%%" % int((Economy.get_loot_energy_multiplier() * 100) - 100.0)
 	}
 
 	for key in replacements.keys():

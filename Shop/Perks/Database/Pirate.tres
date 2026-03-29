@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://br82gtl4xm7xh"]
+
+[ext_resource type="Script" uid="uid://c1uaqbeq2moe8" path="res://Progression/Requirement.gd" id="1_3ku2s"]
+[ext_resource type="Script" uid="uid://ckw3mtxxh7toi" path="res://Shop/Items/ItemData.gd" id="2_dauqy"]
+
+[resource]
+script = ExtResource("2_dauqy")
+id = "pirate"
+item_category = 3
+item_type = 1
+power_up_type = 13
+power_up_amount = 0.1
+item_base_price = 1.0
+item_name = "Pirate"
+price_scaling = 1.0
+item_description = "Increases energy salvaged from enemies by [color=green]{value}[/color]
+
+Current: [color=yellow]{loot_energy_multiplier}[/color]"
+metadata/_custom_type_script = "uid://ckw3mtxxh7toi"
