@@ -951,7 +951,7 @@ theme_override_constants/separation = 0
 money_ui = NodePath("../UI/UITAB/Content/ShopHeader/MATOSYS/BalanceArea/BalanceLabel")
 level_ui = NodePath("../UI/COMMANDERTAB/Content/ShopHeader/Commander")
 level_bar = NodePath("../UI/COMMANDERTAB/Content/ShopHeader/Commander/LevelArea/LevelBar/TextureProgressBar")
-energy = 512152152.0
+energy = 5000.0
 
 [node name="Forcefield" type="Node2D" parent="." unique_id=60064998 node_paths=PackedStringArray("forcefield_node", "hitbox")]
 script = ExtResource("26_7fifu")
